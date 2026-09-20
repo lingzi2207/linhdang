@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Newsreader", "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-paper: #FBF9F5;
+  --color-paper-warm: #F4EFEA;
+  --color-paper-card: #FFFFFF;
+  --color-ink: #1C1A17;
+  --color-ink-muted: #5E584F;
+  --color-ink-light: #8E877D;
+  --color-rule: #E6E1D8;
+  --color-rule-dark: #C8C1B4;
+  --color-accent-amber: #995B24;
+  --color-accent-terracotta: #9C4127;
+  --color-accent-sage: #385040;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.font-serif-editorial {
+  font-family: var(--font-serif);
+  font-feature-settings: "liga" 1, "kern" 1;
+}
+
+.font-sans-editorial {
+  font-family: var(--font-sans);
+}
+
+/* Editorial subtle paper texture and fine borders */
+.editorial-rule {
+  border-color: var(--color-rule);
+}
+
+.editorial-quote::before {
+  content: "“";
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  line-height: 0;
+  position: absolute;
+  left: -1.5rem;
+  top: 1.25rem;
+  color: var(--color-rule-dark);
+  opacity: 0.6;
+}
+
+/* Custom scrollbar for calm editorial aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F4EFEA;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8D2C6;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8B0A2;
+}

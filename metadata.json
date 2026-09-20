@@ -1,0 +1,6 @@
+{
+  "name": "Linh Đặng – Biên tập viên & Dịch giả",
+  "description": "Portfolio cá nhân của Linh Đặng – Biên tập viên sách, dịch giả và chuyên gia xuất bản tại Việt Nam (linhdang.id.vn).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
