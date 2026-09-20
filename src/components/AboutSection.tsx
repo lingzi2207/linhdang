@@ -22,27 +22,14 @@ export const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="gioi-thieu" className="pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-[#E6E1D8] bg-[#FBF9F5]">
+    <section id="gioi-thieu" className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-[#E5E7EB] bg-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-16">
-        {/* Colophon Page Metadata Strip */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#E6E1D8] text-xs font-mono text-[#6B665E]">
-          <div className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-[#995B24]" />
-            <span className="font-semibold text-[#1C1A17]">TRANG 03 / 06 · GIỚI THIỆU & TRIẾT LÝ NGHỀ NGHIỆP</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span>CHỦ THỂ: LINH ĐẶNG</span>
-            <span className="text-[#C8C1B4]">|</span>
-            <span>12 NĂM HÀNH NGHỀ</span>
-          </div>
-        </div>
-
         {/* Section Header */}
         <div className="max-w-3xl space-y-4">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#995B24] font-semibold">
+          <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
             CHÂN DUNG & TRIẾT LÝ NGHỀ NGHIỆP
           </span>
-          <h2 className="font-serif-editorial text-3xl sm:text-5xl font-light text-[#1C1A17] tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#1C1A17] tracking-tight leading-tight">
             Người đứng sau bóng con chữ và hành trình làm người gác cổng bản thảo.
           </h2>
         </div>
@@ -50,8 +37,8 @@ export const AboutSection: React.FC = () => {
         {/* Two-Column Editorial Profile */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Narrative (7 cols) */}
-          <div className="lg:col-span-7 space-y-6 text-[#201E1B] font-serif-editorial text-lg leading-relaxed">
-            <p className="first-letter:text-5xl first-letter:font-normal first-letter:mr-3 first-letter:float-left first-letter:text-[#995B24] first-letter:leading-none">
+          <div className="lg:col-span-7 space-y-6 text-[#201E1B] text-base sm:text-lg leading-relaxed">
+            <p className="first-letter:text-5xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-[#995B24] first-letter:leading-none">
               Tôi bắt đầu bước chân vào ngành xuất bản từ năm 2013, giữa giai đoạn thị trường sách Việt Nam đang chuyển mình mạnh mẽ về cả số lượng lẫn tiêu chuẩn mỹ thuật ấn phẩm. Trải qua hơn 12 năm làm việc với các bản thảo văn học, triết học, tản văn và sách nghệ thuật, tôi luôn giữ nguyên niềm say mê thuở ban đầu: sự hồi hộp khi mở một trang văn bản mới tinh chưa ai chạm bút.
             </p>
 
@@ -63,25 +50,25 @@ export const AboutSection: React.FC = () => {
               Những năm tháng làm việc tại các nhà xuất bản hàng đầu như Nhã Nam, Kim Đồng, Omega Plus và NXB Trẻ đã cho tôi cơ hội trực tiếp tham gia hội chợ sách quốc tế Frankfurt, trao đổi bản quyền với các đại diện văn học khắp thế giới, và đặc biệt là rèn luyện sự khiêm nhường sâu sắc trước kho tàng tri thức nhân loại.
             </p>
 
-            <div className="pt-4 border-t border-[#E6E1D8] flex flex-wrap gap-8 text-xs font-mono text-[#6B665E]">
+            <div className="pt-4 border-t border-[#E5E7EB] flex flex-wrap gap-8 text-xs text-[#6B7280]">
               <div>
-                <span className="block text-[#8E877D]">NGÔN NGỮ LÀM VIỆC</span>
-                <span className="text-[#1C1A17] font-medium">Tiếng Việt (Bản ngữ) · Tiếng Anh · Tiếng Pháp</span>
+                <span className="block text-[#9CA3AF] font-medium">NGÔN NGỮ LÀM VIỆC</span>
+                <span className="text-[#1C1A17] font-semibold">Tiếng Việt (Bản ngữ) · Tiếng Anh · Tiếng Pháp</span>
               </div>
               <div>
-                <span className="block text-[#8E877D]">CHUYÊN MÔN NỔI BẬT</span>
-                <span className="text-[#1C1A17] font-medium">Văn học dịch, Khảo cứu Triết học, Nghệ thuật in</span>
+                <span className="block text-[#9CA3AF] font-medium">CHUYÊN MÔN NỔI BẬT</span>
+                <span className="text-[#1C1A17] font-semibold">Văn học dịch, Khảo cứu Triết học, Nghệ thuật in</span>
               </div>
             </div>
           </div>
 
           {/* Right Column: Editorial Principles Card (5 cols) */}
-          <div className="lg:col-span-5 bg-[#F4EFEA] border border-[#E6E1D8] p-8 sm:p-10 space-y-8">
-            <div className="border-b border-[#E6E1D8] pb-4">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#8E877D] block mb-1">
+          <div className="lg:col-span-5 bg-[#F9FAFB] border border-[#E5E7EB] p-8 sm:p-10 space-y-8">
+            <div className="border-b border-[#E5E7EB] pb-4">
+              <span className="text-xs uppercase tracking-widest text-[#9CA3AF] block mb-1 font-semibold">
                 NGUYÊN TẮC CỐT LÕI
               </span>
-              <h3 className="font-serif-editorial text-2xl text-[#1C1A17]">
+              <h3 className="text-2xl font-bold text-[#1C1A17]">
                 Ba nguyên tắc của người làm bản thảo
               </h3>
             </div>
@@ -104,19 +91,19 @@ export const AboutSection: React.FC = () => {
               ))}
             </div>
 
-            <div className="pt-2 border-t border-[#E6E1D8] text-[11px] font-mono text-[#8E877D]">
+            <div className="pt-2 border-t border-[#E5E7EB] text-xs text-[#9CA3AF]">
               *Tuân thủ nghiêm ngặt chuẩn mực bảo mật bản thảo & quyền tác giả.
             </div>
           </div>
         </div>
 
         {/* Editorial Testimonials / Words from Colleagues & Authors */}
-        <div className="pt-12 border-t border-[#E6E1D8] space-y-8">
+        <div className="pt-12 border-t border-[#E5E7EB] space-y-8">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#995B24] font-semibold">
+            <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
               CHIA SẺ TỪ ĐỒNG NGHIỆP & TÁC GIẢ
             </span>
-            <span className="text-xs font-mono text-[#8E877D]">
+            <span className="text-xs text-[#9CA3AF]">
               ĐÁNH GIÁ CHUYÊN MÔN
             </span>
           </div>
@@ -126,23 +113,23 @@ export const AboutSection: React.FC = () => {
               <div
                 key={t.id}
                 id={`testimonial-${t.id}`}
-                className="bg-white border border-[#E6E1D8] p-6 sm:p-7 flex flex-col justify-between space-y-6"
+                className="bg-white border border-[#E5E7EB] p-6 sm:p-7 flex flex-col justify-between space-y-6 shadow-xs"
               >
                 <div className="space-y-4">
-                  <Quote size={20} className="text-[#C8C1B4]" />
-                  <p className="font-serif-editorial text-sm sm:text-base italic text-[#201E1B] leading-relaxed">
+                  <Quote size={20} className="text-gray-300" />
+                  <p className="text-sm sm:text-base italic text-[#201E1B] leading-relaxed">
                     “{t.quote}”
                   </p>
                 </div>
 
-                <div className="border-t border-[#E6E1D8]/60 pt-4 space-y-1">
-                  <div className="font-medium text-xs font-sans text-[#1C1A17]">
+                <div className="border-t border-[#E5E7EB] pt-4 space-y-1">
+                  <div className="font-semibold text-xs text-[#1C1A17]">
                     {t.author}
                   </div>
-                  <div className="text-[11px] font-mono text-[#6B665E]">
+                  <div className="text-xs text-[#6B7280]">
                     {t.title}
                   </div>
-                  <div className="text-[10px] font-mono text-[#8E877D]">
+                  <div className="text-xs text-[#9CA3AF]">
                     {t.affiliation}
                   </div>
                 </div>

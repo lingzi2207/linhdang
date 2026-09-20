@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { X, BookOpen, ExternalLink, Bookmark, Award, Languages, FileText } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import { Project } from '../types';
+import { X, Bookmark, Award } from 'lucide-react';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -11,41 +11,49 @@ interface ProjectModalProps {
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, onInquire }) => {
   const [activeTab, setActiveTab] = useState<'details' | 'excerpt'>('details');
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   if (!project) return null;
 
   return (
     <div
-      id="project-detail-modal-backdrop"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#1C1A17]/60 backdrop-blur-sm animate-in fade-in duration-200"
+      id="project-detail-modal-overlay"
+      className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
       onClick={onClose}
     >
       <div
         id="project-detail-modal-container"
-        className="bg-[#FBF9F5] border border-[#E6E1D8] w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl relative"
+        className="bg-white border border-[#E5E7EB] w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl relative my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Top Bar */}
-        <div className="sticky top-0 bg-[#FBF9F5] border-b border-[#E6E1D8] px-6 py-4 flex items-center justify-between z-10">
+        <div className="sticky top-0 bg-white border-b border-[#E5E7EB] px-6 py-4 flex items-center justify-between z-10">
           <div className="flex items-center gap-3">
             <span
               className="w-3 h-3 rounded-full inline-block"
               style={{ backgroundColor: project.coverAccent }}
             />
-            <span className="text-xs font-mono uppercase tracking-wider text-[#6B665E]">
+            <span className="text-xs uppercase tracking-wider text-[#6B7280] font-semibold">
               {project.role} · {project.year}
             </span>
           </div>
 
           <div className="flex items-center gap-2">
             {project.excerpt && (
-              <div className="hidden sm:flex border border-[#E6E1D8] p-0.5 rounded-sm text-xs font-mono">
+              <div className="hidden sm:flex border border-[#E5E7EB] p-0.5 text-xs">
                 <button
                   id="tab-btn-details"
                   onClick={() => setActiveTab('details')}
-                  className={`px-3 py-1 transition-colors ${
+                  className={`px-3 py-1 transition-colors font-medium cursor-pointer ${
                     activeTab === 'details'
-                      ? 'bg-[#1C1A17] text-[#FBF9F5]'
-                      : 'text-[#6B665E] hover:text-[#1C1A17]'
+                      ? 'bg-[#1C1A17] text-white'
+                      : 'text-[#6B7280] hover:text-[#1C1A17]'
                   }`}
                 >
                   Hồ sơ xuất bản
@@ -53,10 +61,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
                 <button
                   id="tab-btn-excerpt"
                   onClick={() => setActiveTab('excerpt')}
-                  className={`px-3 py-1 transition-colors ${
+                  className={`px-3 py-1 transition-colors font-medium cursor-pointer ${
                     activeTab === 'excerpt'
-                      ? 'bg-[#1C1A17] text-[#FBF9F5]'
-                      : 'text-[#6B665E] hover:text-[#1C1A17]'
+                      ? 'bg-[#1C1A17] text-white'
+                      : 'text-[#6B7280] hover:text-[#1C1A17]'
                   }`}
                 >
                   Đọc trích đoạn
@@ -67,7 +75,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
             <button
               id="close-modal-btn"
               onClick={onClose}
-              className="p-1.5 text-[#6B665E] hover:text-[#1C1A17] hover:bg-[#F4EFEA] transition-colors rounded-none"
+              className="p-1.5 text-[#6B7280] hover:text-[#1C1A17] hover:bg-gray-100 transition-colors cursor-pointer"
               aria-label="Đóng chi tiết tác phẩm"
             >
               <X size={20} />
@@ -78,30 +86,30 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
         {/* Modal Content Body */}
         <div className="p-6 sm:p-10 space-y-8">
           {/* Header Title Section */}
-          <div className="space-y-2 border-b border-[#E6E1D8] pb-6">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#995B24]">
+          <div className="space-y-2 border-b border-[#E5E7EB] pb-6">
+            <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
               {project.category}
             </span>
-            <h2 className="font-serif-editorial text-2xl sm:text-4xl text-[#1C1A17] font-normal leading-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#1C1A17] leading-tight">
               {project.title}
             </h2>
             {project.originalTitle && (
-              <p className="text-sm font-serif italic text-[#6B665E]">
+              <p className="text-sm italic text-[#6B7280]">
                 Nguyên tác: {project.originalTitle}
               </p>
             )}
 
-            <div className="pt-2 flex flex-wrap items-center gap-y-2 gap-x-6 text-sm text-[#5E584F]">
+            <div className="pt-2 flex flex-wrap items-center gap-y-2 gap-x-6 text-sm text-[#4B5563]">
               <div>
-                <span className="text-[#8E877D] text-xs uppercase font-mono mr-1.5">Tác giả:</span>
-                <span className="font-medium text-[#1C1A17]">{project.author}</span>
+                <span className="text-[#9CA3AF] text-xs uppercase mr-1.5 font-medium">Tác giả:</span>
+                <span className="font-semibold text-[#1C1A17]">{project.author}</span>
               </div>
               <div>
-                <span className="text-[#8E877D] text-xs uppercase font-mono mr-1.5">Đơn vị:</span>
-                <span className="font-medium text-[#1C1A17]">{project.publisher}</span>
+                <span className="text-[#9CA3AF] text-xs uppercase mr-1.5 font-medium">Đơn vị:</span>
+                <span className="font-semibold text-[#1C1A17]">{project.publisher}</span>
               </div>
               {project.awardsOrRecognition && (
-                <div className="flex items-center gap-1.5 text-[#995B24] font-medium text-xs">
+                <div className="flex items-center gap-1.5 text-[#995B24] font-semibold text-xs">
                   <Award size={14} />
                   <span>{project.awardsOrRecognition}</span>
                 </div>
@@ -111,19 +119,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
 
           {/* Mobile Tab Switcher */}
           {project.excerpt && (
-            <div className="sm:hidden flex border border-[#E6E1D8] rounded-sm text-xs font-mono">
+            <div className="sm:hidden flex border border-[#E5E7EB] text-xs">
               <button
                 onClick={() => setActiveTab('details')}
-                className={`flex-1 py-2 text-center transition-colors ${
-                  activeTab === 'details' ? 'bg-[#1C1A17] text-[#FBF9F5]' : 'text-[#6B665E]'
+                className={`flex-1 py-2 text-center transition-colors font-medium ${
+                  activeTab === 'details' ? 'bg-[#1C1A17] text-white' : 'text-[#6B7280]'
                 }`}
               >
                 Hồ sơ xuất bản
               </button>
               <button
                 onClick={() => setActiveTab('excerpt')}
-                className={`flex-1 py-2 text-center transition-colors ${
-                  activeTab === 'excerpt' ? 'bg-[#1C1A17] text-[#FBF9F5]' : 'text-[#6B665E]'
+                className={`flex-1 py-2 text-center transition-colors font-medium ${
+                  activeTab === 'excerpt' ? 'bg-[#1C1A17] text-white' : 'text-[#6B7280]'
                 }`}
               >
                 Đọc trích đoạn
@@ -135,46 +143,46 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
             <div className="space-y-8">
               {/* Summary */}
               <div className="space-y-3">
-                <h3 className="text-xs font-mono uppercase tracking-widest text-[#8E877D]">
+                <h3 className="text-xs uppercase tracking-widest text-[#9CA3AF] font-semibold">
                   TÓM LƯỢC TÁC PHẨM
                 </h3>
-                <p className="text-base text-[#201E1B] leading-relaxed font-sans">
+                <p className="text-base text-[#201E1B] leading-relaxed">
                   {project.summary}
                 </p>
               </div>
 
               {/* Editorial Note - The Core Craft */}
-              <div className="bg-[#F4EFEA] border-l-2 border-[#995B24] p-6 space-y-3">
-                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#995B24] font-semibold">
+              <div className="bg-gray-50 border-l-2 border-[#995B24] p-6 space-y-3">
+                <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#995B24] font-bold">
                   <Bookmark size={14} />
                   <span>GHI CHÚ BIÊN TẬP & DỊCH THUẬT</span>
                 </div>
-                <p className="font-serif-editorial text-base sm:text-lg italic text-[#201E1B] leading-relaxed">
+                <p className="text-base sm:text-lg italic text-[#201E1B] leading-relaxed">
                   “{project.editorialNote}”
                 </p>
               </div>
 
               {/* Colophon & Publishing Specifications */}
-              <div className="border border-[#E6E1D8] p-6 space-y-4">
-                <h3 className="text-xs font-mono uppercase tracking-widest text-[#8E877D]">
+              <div className="border border-[#E5E7EB] p-6 space-y-4 bg-white">
+                <h3 className="text-xs uppercase tracking-widest text-[#9CA3AF] font-semibold">
                   THÔNG SỐ ẤN PHẨM & KỸ THUẬT IN
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                   <div className="space-y-1">
-                    <span className="text-[#8E877D] block">Số trang</span>
-                    <span className="text-[#1C1A17] font-medium">{project.pages ? `${project.pages} trang` : 'Không xác định'}</span>
+                    <span className="text-[#9CA3AF] block font-medium">Số trang</span>
+                    <span className="text-[#1C1A17] font-semibold">{project.pages ? `${project.pages} trang` : 'Không xác định'}</span>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[#8E877D] block">Mã số chuẩn ISBN</span>
-                    <span className="text-[#1C1A17] font-medium">{project.isbn || 'Ấn bản lưu hành nội bộ'}</span>
+                    <span className="text-[#9CA3AF] block font-medium">Mã số chuẩn ISBN</span>
+                    <span className="text-[#1C1A17] font-semibold">{project.isbn || 'Ấn bản lưu hành nội bộ'}</span>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[#8E877D] block">Quy cách gia công</span>
-                    <span className="text-[#1C1A17] font-medium">{project.format || 'Bìa mềm tay gập'}</span>
+                    <span className="text-[#9CA3AF] block font-medium">Quy cách gia công</span>
+                    <span className="text-[#1C1A17] font-semibold">{project.format || 'Bìa mềm tay gập'}</span>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[#8E877D] block">Năm xuất bản</span>
-                    <span className="text-[#1C1A17] font-medium">{project.year}</span>
+                    <span className="text-[#9CA3AF] block font-medium">Năm xuất bản</span>
+                    <span className="text-[#1C1A17] font-semibold">{project.year}</span>
                   </div>
                 </div>
               </div>
@@ -184,7 +192,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[12px] font-mono px-2.5 py-1 bg-[#F4EFEA] text-[#6B665E] border border-[#E6E1D8]"
+                    className="text-xs px-2.5 py-1 bg-gray-50 text-[#4B5563] border border-[#E5E7EB]"
                   >
                     #{tag}
                   </span>
@@ -194,19 +202,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
           ) : (
             /* Excerpt Reading Mode */
             <div className="space-y-6">
-              <div className="border-b border-[#E6E1D8] pb-3">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#995B24] block">
+              <div className="border-b border-[#E5E7EB] pb-3">
+                <span className="text-xs uppercase tracking-wider text-[#995B24] block font-bold">
                   {project.excerpt?.chapter}
                 </span>
-                <span className="text-xs text-[#8E877D] font-mono">
+                <span className="text-xs text-[#6B7280]">
                   {project.excerpt?.originalLanguage ? `Đối chiếu song ngữ (${project.excerpt.originalLanguage} → Tiếng Việt)` : 'Trích đoạn tiếng Việt'}
                 </span>
               </div>
 
               {/* Vietnamese Text */}
               <div className="space-y-3">
-                <span className="text-xs font-mono uppercase text-[#6B665E] block">Bản tiếng Việt</span>
-                <blockquote className="font-serif-editorial text-lg sm:text-xl text-[#1C1A17] leading-relaxed italic bg-[#F4EFEA] p-6 border-l-2 border-[#1C1A17]">
+                <span className="text-xs uppercase text-[#4B5563] block font-semibold">Bản tiếng Việt</span>
+                <blockquote className="text-lg sm:text-xl text-[#1C1A17] leading-relaxed italic bg-gray-50 p-6 border-l-2 border-[#1C1A17]">
                   "{project.excerpt?.viText}"
                 </blockquote>
               </div>
@@ -214,16 +222,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               {/* Original Text if exists */}
               {project.excerpt?.originalText && (
                 <div className="space-y-3 pt-2">
-                  <span className="text-xs font-mono uppercase text-[#8E877D] block">
+                  <span className="text-xs uppercase text-[#9CA3AF] block font-semibold">
                     Nguyên tác ({project.excerpt.originalLanguage})
                   </span>
-                  <blockquote className="font-serif text-base text-[#5E584F] leading-relaxed italic bg-white p-6 border border-[#E6E1D8]">
+                  <blockquote className="text-base text-[#4B5563] leading-relaxed italic bg-white p-6 border border-[#E5E7EB]">
                     "{project.excerpt.originalText}"
                   </blockquote>
                 </div>
               )}
 
-              <p className="text-xs text-[#8E877D] font-mono italic pt-2">
+              <p className="text-xs text-[#9CA3AF] italic pt-2">
                 *Trích đoạn được chia sẻ với mục đích nghiên cứu học thuật và minh họa phong cách biên tập/dịch thuật của Linh Đặng.
               </p>
             </div>
@@ -231,8 +239,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
         </div>
 
         {/* Modal Footer Actions */}
-        <div className="sticky bottom-0 bg-[#F4EFEA] border-t border-[#E6E1D8] px-6 sm:px-10 py-4 flex flex-wrap items-center justify-between gap-4">
-          <span className="text-xs font-mono text-[#8E877D]">
+        <div className="sticky bottom-0 bg-white border-t border-[#E5E7EB] px-6 sm:px-10 py-4 flex flex-wrap items-center justify-between gap-4">
+          <span className="text-xs text-[#6B7280]">
             Ấn phẩm được bảo hộ bản quyền xuất bản
           </span>
 
@@ -242,7 +250,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               onInquire(project.title);
               onClose();
             }}
-            className="px-5 py-2.5 bg-[#1C1A17] text-[#FBF9F5] text-xs font-mono uppercase tracking-wider hover:bg-[#33302B] transition-colors"
+            className="px-5 py-2.5 bg-[#1C1A17] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#33302B] transition-colors cursor-pointer"
           >
             Thảo luận dự án tương tự →
           </button>

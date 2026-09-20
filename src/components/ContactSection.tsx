@@ -44,30 +44,17 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
   };
 
   return (
-    <section id="lien-he" className="pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-[#E6E1D8]">
+    <section id="lien-he" className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-[#E5E7EB] bg-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-12">
-        {/* Colophon Page Metadata Strip */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#E6E1D8] text-xs font-mono text-[#6B665E]">
-          <div className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-[#995B24]" />
-            <span className="font-semibold text-[#1C1A17]">TRANG 06 / 06 · LIÊN HỆ & TIẾP NHẬN BẢN THẢO</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span>EMAIL CHÍNH: LINH.DANG@LINHDANG.ID.VN</span>
-            <span className="text-[#C8C1B4]">|</span>
-            <span>BẢO MẬT NDA</span>
-          </div>
-        </div>
-
         {/* Section Header */}
         <div className="max-w-3xl space-y-4">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#995B24] font-semibold">
+          <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
             TRAO ĐỔI CÔNG VIỆC & BẢN THẢO
           </span>
-          <h2 className="font-serif-editorial text-3xl sm:text-5xl font-light text-[#1C1A17] tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#1C1A17] tracking-tight leading-tight">
             Khởi đầu một cuộc trò chuyện về cuốn sách sắp tới.
           </h2>
-          <p className="text-base text-[#5E584F] font-serif-editorial font-light leading-relaxed">
+          <p className="text-base text-[#4B5563] leading-relaxed">
             Cho dù bạn là một tác giả đang tìm kiếm người đọc phản biện đầu tiên, một nhà xuất bản cần thẩm định bản thảo quốc tế, hay một đối tác muốn dịch thuật tác phẩm đoạt giải — tôi luôn trân trọng từng cơ hội hợp tác nghiêm cẩn.
           </p>
         </div>
@@ -75,12 +62,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Direct Inquiries & Contact Details (5 cols) */}
           <div className="lg:col-span-5 space-y-8">
-            <div className="bg-[#F4EFEA] border border-[#E6E1D8] p-8 space-y-6">
-              <div className="space-y-1 border-b border-[#E6E1D8] pb-4">
-                <span className="text-xs font-mono uppercase tracking-widest text-[#8E877D]">
+            <div className="bg-[#F9FAFB] border border-[#E5E7EB] p-8 space-y-6">
+              <div className="space-y-1 border-b border-[#E5E7EB] pb-4">
+                <span className="text-xs uppercase tracking-widest text-[#9CA3AF] font-semibold">
                   KÊNH THÔNG TIN CHÍNH THỨC
                 </span>
-                <h3 className="font-serif-editorial text-2xl text-[#1C1A17]">
+                <h3 className="text-2xl font-bold text-[#1C1A17]">
                   Thông tin liên hệ
                 </h3>
               </div>
@@ -156,21 +143,21 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
           </div>
 
           {/* Right Column: Inquiry Form (7 cols) */}
-          <div className="lg:col-span-7 bg-white border border-[#E6E1D8] p-8 sm:p-10 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+          <div className="lg:col-span-7 bg-white border border-[#E5E7EB] p-8 sm:p-10 shadow-xs">
             {isSubmitted ? (
               <div
                 id="contact-form-success-state"
                 className="py-12 text-center space-y-6 animate-in fade-in duration-300"
               >
-                <div className="w-12 h-12 rounded-full bg-[#F4EFEA] border border-[#995B24] text-[#995B24] flex items-center justify-center mx-auto">
+                <div className="w-12 h-12 rounded-full bg-amber-50 border border-[#995B24] text-[#995B24] flex items-center justify-center mx-auto">
                   <CheckCircle2 size={24} />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[#1C1A17]">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-[#1C1A17]">
                     Đã tiếp nhận lời nhắn của bạn
                   </h3>
-                  <p className="text-sm font-sans text-[#5E584F] max-w-md mx-auto leading-relaxed">
-                    Cảm ơn bạn đã gửi thông tin về tác phẩm. Linh Đặng sẽ xem xét cẩn trọng và phản hồi tới email <span className="font-medium text-[#1C1A17]">{formData.email}</span> trong thời gian sớm nhất.
+                  <p className="text-sm text-[#4B5563] max-w-md mx-auto leading-relaxed">
+                    Cảm ơn bạn đã gửi thông tin về tác phẩm. Linh Đặng sẽ xem xét cẩn trọng và phản hồi tới email <span className="font-semibold text-[#1C1A17]">{formData.email}</span> trong thời gian sớm nhất.
                   </p>
                 </div>
 
@@ -178,7 +165,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                   <button
                     id="submit-another-inquiry-btn"
                     onClick={handleReset}
-                    className="px-6 py-2.5 bg-[#1C1A17] text-[#FBF9F5] text-xs font-mono uppercase tracking-wider hover:bg-[#33302B] transition-colors"
+                    className="px-6 py-2.5 bg-[#1C1A17] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#33302B] transition-colors cursor-pointer"
                   >
                     Gửi đề xuất khác
                   </button>
@@ -186,11 +173,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
               </div>
             ) : (
               <form id="manuscript-inquiry-form" onSubmit={handleSubmit} className="space-y-6">
-                <div className="border-b border-[#E6E1D8] pb-4">
-                  <span className="text-xs font-mono uppercase tracking-widest text-[#995B24]">
+                <div className="border-b border-[#E5E7EB] pb-4">
+                  <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
                     PHIẾU ĐỀ XUẤT HỢP TÁC
                   </span>
-                  <h3 className="font-serif-editorial text-2xl text-[#1C1A17]">
+                  <h3 className="text-2xl font-bold text-[#1C1A17]">
                     Gửi thông tin dự án hoặc bản thảo
                   </h3>
                 </div>
@@ -200,7 +187,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                   <div className="space-y-1.5">
                     <label
                       htmlFor="input-name"
-                      className="text-xs font-mono uppercase tracking-wider text-[#6B665E] block"
+                      className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
                     >
                       Họ và tên tác giả / Người liên hệ *
                     </label>
@@ -211,14 +198,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                       placeholder="Nguyễn Văn A"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-[#FBF9F5] border border-[#E6E1D8] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
+                      className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label
                       htmlFor="input-email"
-                      className="text-xs font-mono uppercase tracking-wider text-[#6B665E] block"
+                      className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
                     >
                       Địa chỉ Email phản hồi *
                     </label>
@@ -229,7 +216,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                       placeholder="ban@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-[#FBF9F5] border border-[#E6E1D8] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
+                      className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
                     />
                   </div>
                 </div>
@@ -238,7 +225,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                   <div className="space-y-1.5">
                     <label
                       htmlFor="input-org"
-                      className="text-xs font-mono uppercase tracking-wider text-[#6B665E] block"
+                      className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
                     >
                       Đơn vị / Vai trò
                     </label>
@@ -248,14 +235,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                       placeholder="Tác giả độc lập / NXB / Tổ chức"
                       value={formData.organization}
                       onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                      className="w-full bg-[#FBF9F5] border border-[#E6E1D8] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
+                      className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label
                       htmlFor="input-service"
-                      className="text-xs font-mono uppercase tracking-wider text-[#6B665E] block"
+                      className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
                     >
                       Hạng mục quan tâm *
                     </label>
@@ -263,7 +250,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                       id="input-service"
                       value={formData.serviceType}
                       onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                      className="w-full bg-[#FBF9F5] border border-[#E6E1D8] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors cursor-pointer"
+                      className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors cursor-pointer"
                     >
                       <option value="Thẩm định bản thảo">Thẩm định bản thảo (Appraisal)</option>
                       <option value="Biên tập bản thảo chuyên sâu">Biên tập bản thảo chuyên sâu (Developmental Editing)</option>
@@ -278,7 +265,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                 <div className="space-y-1.5">
                   <label
                     htmlFor="input-project-title"
-                    className="text-xs font-mono uppercase tracking-wider text-[#6B665E] block"
+                    className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
                   >
                     Tên dự án / Nhan đề bản thảo dự kiến
                   </label>
@@ -288,14 +275,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                     placeholder="Ví dụ: Tiểu thuyết, Tuyển tập tản văn hoặc Tác phẩm khảo cứu..."
                     value={formData.projectTitle}
                     onChange={(e) => setFormData({ ...formData, projectTitle: e.target.value })}
-                    className="w-full bg-[#FBF9F5] border border-[#E6E1D8] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
+                    className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
                   />
                 </div>
 
                 <div className="space-y-1.5">
                   <label
                     htmlFor="input-link"
-                    className="text-xs font-mono uppercase tracking-wider text-[#6B665E] block"
+                    className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
                   >
                     Liên kết tóm tắt đề cương / Mẫu bản thảo (Nếu có)
                   </label>
@@ -305,14 +292,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                     placeholder="https://drive.google.com/... hoặc link Dropbox, Notion"
                     value={formData.manuscriptLink}
                     onChange={(e) => setFormData({ ...formData, manuscriptLink: e.target.value })}
-                    className="w-full bg-[#FBF9F5] border border-[#E6E1D8] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors font-mono text-xs"
+                    className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
                   />
                 </div>
 
                 <div className="space-y-1.5">
                   <label
                     htmlFor="input-message"
-                    className="text-xs font-mono uppercase tracking-wider text-[#6B665E] block"
+                    className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
                   >
                     Lời nhắn & Mục tiêu của cuốn sách *
                   </label>
@@ -323,12 +310,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                     placeholder="Chia sẻ ngắn gọn về tiến độ bản thảo, đối tượng độc giả mong muốn tiếp cận, hoặc những băn khoăn cụ thể bạn muốn người biên tập hỗ trợ..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-[#FBF9F5] border border-[#E6E1D8] p-3.5 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors font-sans"
+                    className="w-full bg-white border border-[#E5E7EB] p-3.5 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
                   />
                 </div>
 
                 <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <span className="text-[11px] font-mono text-[#8E877D]">
+                  <span className="text-xs text-[#9CA3AF]">
                     * Thông tin được bảo mật tuyệt đối theo chuẩn mực xuất bản.
                   </span>
 
@@ -336,7 +323,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
                     id="submit-inquiry-btn"
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full sm:w-auto px-8 py-3 bg-[#1C1A17] text-[#FBF9F5] text-xs font-mono uppercase tracking-wider hover:bg-[#33302B] disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-8 py-3 bg-[#1C1A17] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#33302B] disabled:opacity-50 transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <span>Đang gửi thư...</span>

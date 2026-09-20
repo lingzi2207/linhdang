@@ -54,28 +54,28 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <span className="text-[#1C1A17] uppercase font-semibold block">ĐIỀU HƯỚNG NHANH</span>
             <ul className="space-y-1 text-[#6B665E]">
               <li>
-                <button onClick={() => onNavigate('trang-chu')} className="hover:text-[#1C1A17]">
+                <button onClick={() => onNavigate('trang-chu')} className="hover:text-[#1C1A17] cursor-pointer">
                   Trang chủ
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('du-an')} className="hover:text-[#1C1A17]">
+                <button onClick={() => onNavigate('du-an')} className="hover:text-[#1C1A17] cursor-pointer">
                   Các dự án tiêu biểu
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('gioi-thieu')} className="hover:text-[#1C1A17]">
+                <button onClick={() => onNavigate('gioi-thieu')} className="hover:text-[#1C1A17] cursor-pointer">
                   Giới thiệu & Triết lý
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('kinh-nghiem')} className="hover:text-[#1C1A17]">
+                <button onClick={() => onNavigate('kinh-nghiem')} className="hover:text-[#1C1A17] cursor-pointer">
                   Kinh nghiệm & Dịch vụ
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('suy-ngam')} className="hover:text-[#1C1A17]">
-                  Suy ngẫm bên bàn chữ
+                <button onClick={() => onNavigate('lien-he')} className="hover:text-[#1C1A17] cursor-pointer">
+                  Liên hệ & Hợp tác
                 </button>
               </li>
             </ul>

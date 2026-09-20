@@ -11,10 +11,8 @@ import { FeaturedProjects } from './components/FeaturedProjects';
 import { ProjectModal } from './components/ProjectModal';
 import { AboutSection } from './components/AboutSection';
 import { ExperienceSection } from './components/ExperienceSection';
-import { EditorialNotes } from './components/EditorialNotes';
 import { ContactSection } from './components/ContactSection';
-import { Footer } from './components/Footer';
-import { PageNavigation, PAGES } from './components/PageNavigation';
+import { PAGES } from './components/PageNavigation';
 import { Project } from './types';
 
 export default function App() {
@@ -68,8 +66,6 @@ export default function App() {
         return <AboutSection />;
       case 'kinh-nghiem':
         return <ExperienceSection onSelectServiceForInquiry={handleSelectServiceForInquiry} />;
-      case 'suy-ngam':
-        return <EditorialNotes />;
       case 'lien-he':
         return <ContactSection initialSubject={contactSubject} />;
       case 'trang-chu':
@@ -85,12 +81,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF9F5] text-[#1C1A17] flex flex-col font-sans selection:bg-[#E6E1D8] selection:text-[#1C1A17]">
+    <div className="min-h-screen bg-white text-[#1C1A17] flex flex-col font-sans selection:bg-gray-200 selection:text-[#1C1A17]">
       {/* Header with Navigation Tabs */}
       <Header activePage={activePage} onNavigate={handleNavigate} />
 
       {/* Main Editorial Dedicated Page Content */}
-      <main className="flex-grow">
+      <main className="flex-grow pb-16">
         <AnimatePresence mode="wait">
           <motion.div
             key={activePage}
@@ -103,12 +99,6 @@ export default function App() {
           </motion.div>
         </AnimatePresence>
       </main>
-
-      {/* Page Turning Navigation Bar (Book-style previous/next page & index) */}
-      <PageNavigation currentPage={activePage} onNavigate={handleNavigate} />
-
-      {/* Colophon & Footer */}
-      <Footer onNavigate={handleNavigate} />
 
       {/* Detail & Excerpt Modal */}
       <ProjectModal

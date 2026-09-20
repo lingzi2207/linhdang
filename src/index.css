@@ -1,46 +1,45 @@
 @import "tailwindcss";
 
 @theme {
-  --font-nunito: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sans: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --color-paper: #FBF9F5;
-  --color-paper-warm: #F4EFEA;
+  --font-arial: Arial, "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: Arial, "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: Arial, "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-paper: #FFFFFF;
+  --color-paper-warm: #F9FAFB;
   --color-paper-card: #FFFFFF;
   --color-ink: #1C1A17;
-  --color-ink-muted: #5E584F;
-  --color-ink-light: #8E877D;
-  --color-rule: #E6E1D8;
-  --color-rule-dark: #C8C1B4;
+  --color-ink-muted: #4B5563;
+  --color-ink-light: #6B7280;
+  --color-rule: #E5E7EB;
+  --color-rule-dark: #D1D5DB;
   --color-accent-amber: #995B24;
   --color-accent-terracotta: #9C4127;
   --color-accent-sage: #385040;
 }
 
 body {
-  font-family: var(--font-nunito);
-  background-color: var(--color-paper);
+  font-family: Arial, "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #FFFFFF;
   color: var(--color-ink);
-  letter-spacing: -0.005em;
-}
-
-.font-serif-editorial {
-  font-family: var(--font-nunito);
   letter-spacing: -0.01em;
 }
 
-.font-sans-editorial {
-  font-family: var(--font-nunito);
+.font-serif-editorial {
+  font-family: Arial, "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-/* Editorial subtle paper texture and fine borders */
+.font-sans-editorial {
+  font-family: Arial, "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Editorial subtle clean borders */
 .editorial-rule {
   border-color: var(--color-rule);
 }
 
 .editorial-quote::before {
   content: "“";
-  font-family: var(--font-serif);
+  font-family: Arial, sans-serif;
   font-size: 3.5rem;
   line-height: 0;
   position: absolute;
@@ -50,18 +49,18 @@ body {
   opacity: 0.6;
 }
 
-/* Custom scrollbar for calm editorial aesthetic */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F4EFEA;
+  background: #F9FAFB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D8D2C6;
+  background: #D1D5DB;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B8B0A2;
+  background: #9CA3AF;
 }
