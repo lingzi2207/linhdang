@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Newsreader", "Playfair Display", Georgia, serif;
-  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-nunito: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --color-paper: #FBF9F5;
   --color-paper-warm: #F4EFEA;
   --color-paper-card: #FFFFFF;
@@ -17,19 +18,19 @@
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-nunito);
   background-color: var(--color-paper);
   color: var(--color-ink);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
 }
 
 .font-serif-editorial {
-  font-family: var(--font-serif);
-  font-feature-settings: "liga" 1, "kern" 1;
+  font-family: var(--font-nunito);
+  letter-spacing: -0.01em;
 }
 
 .font-sans-editorial {
-  font-family: var(--font-sans);
+  font-family: var(--font-nunito);
 }
 
 /* Editorial subtle paper texture and fine borders */

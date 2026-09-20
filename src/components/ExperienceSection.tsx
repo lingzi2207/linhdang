@@ -10,8 +10,21 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
   const [activeTab, setActiveTab] = useState<'timeline' | 'services'>('timeline');
 
   return (
-    <section id="kinh-nghiem" className="py-24 sm:py-32 border-b border-[#E6E1D8]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-16">
+    <section id="kinh-nghiem" className="pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-[#E6E1D8]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-12">
+        {/* Colophon Page Metadata Strip */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#E6E1D8] text-xs font-mono text-[#6B665E]">
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#995B24]" />
+            <span className="font-semibold text-[#1C1A17]">TRANG 04 / 06 · QUÁ TRÌNH CÔNG TÁC & DỊCH VỤ XUẤT BẢN</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <span>GIAI ĐOẠN: 2013 – 2026</span>
+            <span className="text-[#C8C1B4]">|</span>
+            <span>4 HẠNG MỤC DỊCH VỤ</span>
+          </div>
+        </div>
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#E6E1D8]">
           <div className="space-y-3">

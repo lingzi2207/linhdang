@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { FeaturedProjects } from './components/FeaturedProjects';
@@ -13,45 +14,39 @@ import { ExperienceSection } from './components/ExperienceSection';
 import { EditorialNotes } from './components/EditorialNotes';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { PageNavigation, PAGES } from './components/PageNavigation';
 import { Project } from './types';
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('trang-chu');
+  // Initialize active page from URL hash if valid, otherwise 'trang-chu'
+  const getInitialPage = () => {
+    const hash = window.location.hash.replace('#', '').trim();
+    return PAGES.some((p) => p.id === hash) ? hash : 'trang-chu';
+  };
+
+  const [activePage, setActivePage] = useState<string>(getInitialPage);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [contactSubject, setContactSubject] = useState<string>('Thẩm định bản thảo');
 
-  // Scroll spy to update active section in header
+  // Synchronize with browser Back / Forward buttons via hashchange
   useEffect(() => {
-    const sections = ['trang-chu', 'du-an', 'gioi-thieu', 'kinh-nghiem', 'suy-ngam', 'lien-he'];
-    
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '').trim();
+      if (PAGES.some((p) => p.id === hash)) {
+        setActivePage(hash);
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const handleNavigate = (sectionId: string) => {
-    setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
+  const handleNavigate = (pageId: string) => {
+    if (!PAGES.some((p) => p.id === pageId)) return;
+    setActivePage(pageId);
+    window.location.hash = pageId;
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleInquireProject = (projectTitle: string) => {
@@ -64,34 +59,53 @@ export default function App() {
     handleNavigate('lien-he');
   };
 
+  // Render the single active page
+  const renderCurrentPage = () => {
+    switch (activePage) {
+      case 'du-an':
+        return <FeaturedProjects onSelectProject={(project) => setSelectedProject(project)} />;
+      case 'gioi-thieu':
+        return <AboutSection />;
+      case 'kinh-nghiem':
+        return <ExperienceSection onSelectServiceForInquiry={handleSelectServiceForInquiry} />;
+      case 'suy-ngam':
+        return <EditorialNotes />;
+      case 'lien-he':
+        return <ContactSection initialSubject={contactSubject} />;
+      case 'trang-chu':
+      default:
+        return (
+          <Hero
+            onExploreProjects={() => handleNavigate('du-an')}
+            onContactClick={() => handleNavigate('lien-he')}
+            onNavigate={handleNavigate}
+          />
+        );
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#FBF9F5] text-[#1C1A17] flex flex-col font-sans selection:bg-[#E6E1D8] selection:text-[#1C1A17]">
-      {/* Header with Navigation */}
-      <Header activeSection={activeSection} onNavigate={handleNavigate} />
+      {/* Header with Navigation Tabs */}
+      <Header activePage={activePage} onNavigate={handleNavigate} />
 
-      {/* Main Editorial Content */}
+      {/* Main Editorial Dedicated Page Content */}
       <main className="flex-grow">
-        {/* Section 1: Trang chủ (Hero & Manifest) */}
-        <Hero
-          onExploreProjects={() => handleNavigate('du-an')}
-          onContactClick={() => handleNavigate('lien-he')}
-        />
-
-        {/* Section 2: Các dự án tiêu biểu (Projects & Catalog) */}
-        <FeaturedProjects onSelectProject={(project) => setSelectedProject(project)} />
-
-        {/* Section 3: Giới thiệu (About Linh Đặng & Philosophy) */}
-        <AboutSection />
-
-        {/* Section 4: Kinh nghiệm & Dịch vụ (Timeline & Publishing Services) */}
-        <ExperienceSection onSelectServiceForInquiry={handleSelectServiceForInquiry} />
-
-        {/* Section 5: Suy ngẫm bên bàn chữ (Editorial Notes & Musings) */}
-        <EditorialNotes />
-
-        {/* Section 6: Liên hệ (Inquiry Form & Direct Contact) */}
-        <ContactSection initialSubject={contactSubject} />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activePage}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+          >
+            {renderCurrentPage()}
+          </motion.div>
+        </AnimatePresence>
       </main>
+
+      {/* Page Turning Navigation Bar (Book-style previous/next page & index) */}
+      <PageNavigation currentPage={activePage} onNavigate={handleNavigate} />
 
       {/* Colophon & Footer */}
       <Footer onNavigate={handleNavigate} />
@@ -105,4 +119,3 @@ export default function App() {
     </div>
   );
 }
-

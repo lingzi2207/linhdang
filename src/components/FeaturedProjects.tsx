@@ -42,8 +42,21 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
   }, [selectedCategory, selectedRoleFilter, searchQuery]);
 
   return (
-    <section id="du-an" className="py-24 sm:py-32 border-b border-[#E6E1D8]">
+    <section id="du-an" className="pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-[#E6E1D8]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-12">
+        {/* Colophon Page Metadata Strip */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#E6E1D8] text-xs font-mono text-[#6B665E]">
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#995B24]" />
+            <span className="font-semibold text-[#1C1A17]">TRANG 02 / 06 · CÁC DỰ ÁN & ẤN PHẨM TIÊU BIỂU</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <span>TỔNG SỐ: {PROJECTS.length} ĐẦU SÁCH</span>
+            <span className="text-[#C8C1B4]">|</span>
+            <span>HIỂN THỊ: {filteredProjects.length}</span>
+          </div>
+        </div>
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#E6E1D8]">
           <div className="space-y-3">

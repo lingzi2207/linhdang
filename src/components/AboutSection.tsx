@@ -22,8 +22,21 @@ export const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="gioi-thieu" className="py-24 sm:py-32 border-b border-[#E6E1D8] bg-[#FBF9F5]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-20">
+    <section id="gioi-thieu" className="pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-[#E6E1D8] bg-[#FBF9F5]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-16">
+        {/* Colophon Page Metadata Strip */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#E6E1D8] text-xs font-mono text-[#6B665E]">
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#995B24]" />
+            <span className="font-semibold text-[#1C1A17]">TRANG 03 / 06 · GIỚI THIỆU & TRIẾT LÝ NGHỀ NGHIỆP</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <span>CHỦ THỂ: LINH ĐẶNG</span>
+            <span className="text-[#C8C1B4]">|</span>
+            <span>12 NĂM HÀNH NGHỀ</span>
+          </div>
+        </div>
+
         {/* Section Header */}
         <div className="max-w-3xl space-y-4">
           <span className="text-xs font-mono uppercase tracking-widest text-[#995B24] font-semibold">

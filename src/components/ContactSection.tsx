@@ -44,8 +44,21 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
   };
 
   return (
-    <section id="lien-he" className="py-24 sm:py-32 border-b border-[#E6E1D8]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-16">
+    <section id="lien-he" className="pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-[#E6E1D8]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-12">
+        {/* Colophon Page Metadata Strip */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#E6E1D8] text-xs font-mono text-[#6B665E]">
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#995B24]" />
+            <span className="font-semibold text-[#1C1A17]">TRANG 06 / 06 · LIÊN HỆ & TIẾP NHẬN BẢN THẢO</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <span>EMAIL CHÍNH: LINH.DANG@LINHDANG.ID.VN</span>
+            <span className="text-[#C8C1B4]">|</span>
+            <span>BẢO MẬT NDA</span>
+          </div>
+        </div>
+
         {/* Section Header */}
         <div className="max-w-3xl space-y-4">
           <span className="text-xs font-mono uppercase tracking-widest text-[#995B24] font-semibold">

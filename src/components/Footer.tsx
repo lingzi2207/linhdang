@@ -84,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="space-y-2">
             <span className="text-[#1C1A17] uppercase font-semibold block">GHI CHÚ MỸ THUẬT (COLOPHON)</span>
             <p className="text-[#6B665E] leading-relaxed">
-              Trang web được thiết kế theo phong cách xuất bản tĩnh lặng: kiểu chữ Newsreader kết hợp Plus Jakarta Sans, màu giấy ngà tự nhiên (#FBF9F5) và mực đen ấm (#1C1A17).
+              Trang web được thiết kế theo phong cách xuất bản tĩnh lặng: kiểu chữ Nunito, màu giấy ngà tự nhiên (#FBF9F5) và mực đen ấm (#1C1A17).
             </p>
           </div>
 
