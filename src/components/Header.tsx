@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
   return (
     <header
       id="editorial-header"
-      className="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5E7EB] shadow-[0_1px_8px_rgba(0,0,0,0.03)] transition-all"
+      className="fixed top-0 left-0 right-0 z-40 bg-white/50 backdrop-blur-md border-b border-[#E5E7EB] shadow-[0_1px_8px_rgba(0,0,0,0.03)] transition-all"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
         {/* Editorial Brand / Title */}
@@ -40,19 +40,24 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
         <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 text-[14px]">
           {PAGES.map((page) => {
             const isActive = activePage === page.id;
+            const isContact = page.id === 'lien-he';
             return (
               <button
                 key={page.id}
                 id={`nav-${page.id}`}
                 onClick={() => handleNavClick(page.id)}
                 className={`px-3.5 py-2 transition-all relative font-medium cursor-pointer ${
-                  isActive
+                  isContact
+                    ? isActive
+                      ? 'bg-gray-200 text-[#1C1A17] font-bold border border-gray-300 rounded-xs'
+                      : 'bg-gray-100 text-[#1C1A17] hover:bg-gray-200 border border-gray-300/80 rounded-xs'
+                    : isActive
                     ? 'text-[#1C1A17] font-semibold bg-gray-100'
                     : 'text-[#6B7280] hover:text-[#1C1A17] hover:bg-gray-50'
                 }`}
               >
                 <span>{page.shortLabel}</span>
-                {isActive && (
+                {isActive && !isContact && (
                   <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-[#995B24]" />
                 )}
               </button>

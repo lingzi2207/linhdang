@@ -1,344 +1,229 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Send, CheckCircle2, Globe, Clock, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { Mail, Linkedin, Facebook, Copy, Check, ArrowUpRight, ShieldCheck, Clock, MapPin, Send } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
-interface ContactSectionProps {
-  initialSubject?: string;
-}
+export const ContactSection: React.FC = () => {
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
 
-export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject = '' }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    organization: '',
-    projectTitle: '',
-    serviceType: initialSubject || 'Thẩm định bản thảo',
-    manuscriptLink: '',
-    message: '',
-  });
+  const primaryEmail = 'lingzi2207@gmail.com';
+  const workEmail = PERSONAL_INFO.email || 'linh.dang@linhdang.id.vn';
+  const linkedinUrl = 'https://www.linkedin.com';
+  const facebookUrl = 'https://www.facebook.com';
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate deliberate editorial submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 800);
-  };
-
-  const handleReset = () => {
-    setFormData({
-      name: '',
-      email: '',
-      organization: '',
-      projectTitle: '',
-      serviceType: 'Thẩm định bản thảo',
-      manuscriptLink: '',
-      message: '',
-    });
-    setIsSubmitted(false);
+  const handleCopyEmail = (email: string) => {
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(email);
+    setTimeout(() => setCopiedEmail(null), 2500);
   };
 
   return (
-    <section id="lien-he" className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-[#E5E7EB] bg-white">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-12">
+    <section id="lien-he" className="pt-28 pb-20 bg-[#F9FAFB] min-h-[calc(100vh-80px)]">
+      <div className="max-w-5xl mx-auto px-6 sm:px-8 space-y-10">
+        
         {/* Section Header */}
-        <div className="max-w-3xl space-y-4">
-          <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
-            TRAO ĐỔI CÔNG VIỆC & BẢN THẢO
+        <div className="space-y-3 border-b border-[#E5E7EB] pb-6">
+          <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold block">
+            THÔNG TIN LIÊN HỆ & HỢP TÁC
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1C1A17] tracking-tight leading-tight">
-            Khởi đầu một cuộc trò chuyện về cuốn sách sắp tới.
-          </h2>
-          <p className="text-base text-[#4B5563] leading-relaxed">
-            Cho dù bạn là một tác giả đang tìm kiếm người đọc phản biện đầu tiên, một nhà xuất bản cần thẩm định bản thảo quốc tế, hay một đối tác muốn dịch thuật tác phẩm đoạt giải — tôi luôn trân trọng từng cơ hội hợp tác nghiêm cẩn.
+          <h1 className="text-3xl sm:text-4xl font-bold text-[#1C1A17] tracking-tight">
+            Liên hệ với Linh Đặng
+          </h1>
+          <p className="text-base text-[#4B5563] max-w-2xl leading-relaxed">
+            Sẵn sàng kết nối cho các dự án biên tập bản thảo, dịch thuật văn học, thẩm định xuất bản và cố vấn nội dung sách.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Direct Inquiries & Contact Details (5 cols) */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="bg-[#F9FAFB] border border-[#E5E7EB] p-8 space-y-6">
-              <div className="space-y-1 border-b border-[#E5E7EB] pb-4">
-                <span className="text-xs uppercase tracking-widest text-[#9CA3AF] font-semibold">
-                  KÊNH THÔNG TIN CHÍNH THỨC
-                </span>
-                <h3 className="text-2xl font-bold text-[#1C1A17]">
-                  Thông tin liên hệ
-                </h3>
-              </div>
-
-              <div className="space-y-4 text-sm font-sans">
-                <div className="space-y-1">
-                  <span className="text-xs font-mono text-[#8E877D] block">Thư điện tử công việc:</span>
-                  <a
-                    href={`mailto:${PERSONAL_INFO.email}`}
-                    className="font-medium text-[#1C1A17] hover:text-[#995B24] transition-colors inline-flex items-center gap-1.5"
-                  >
-                    <span>{PERSONAL_INFO.email}</span>
-                    <ArrowUpRight size={14} />
-                  </a>
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-xs font-mono text-[#8E877D] block">Hòm thư dự phòng:</span>
-                  <a
-                    href={`mailto:${PERSONAL_INFO.secondaryEmail}`}
-                    className="text-[#5E584F] hover:text-[#1C1A17] transition-colors"
-                  >
-                    {PERSONAL_INFO.secondaryEmail}
-                  </a>
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-xs font-mono text-[#8E877D] block">Tên miền chính danh:</span>
-                  <span className="font-mono text-xs text-[#1C1A17]">{PERSONAL_INFO.domain}</span>
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-xs font-mono text-[#8E877D] block">Địa bàn làm việc:</span>
-                  <span className="text-[#201E1B]">{PERSONAL_INFO.location}</span>
-                </div>
-
-                <div className="space-y-1 pt-2 border-t border-[#E6E1D8]/60">
-                  <span className="text-xs font-mono text-[#8E877D] block">Thời gian phản hồi:</span>
-                  <span className="text-xs text-[#5E584F]">
-                    Phản hồi trong vòng 24 – 48 giờ làm việc cho các đề xuất thẩm định hoặc hợp tác xuất bản.
-                  </span>
-                </div>
-              </div>
+        {/* Priority Email Highlight Box */}
+        <div className="bg-white border-2 border-[#1C1A17] p-6 sm:p-8 shadow-xs space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#F3F4F6] text-[#1C1A17] text-xs font-bold uppercase tracking-wider">
+              <Mail size={15} className="text-[#995B24]" />
+              <span>Phương thức ưu tiên</span>
             </div>
-
-            {/* Confidentiality Commitment */}
-            <div className="border border-[#E6E1D8] p-6 space-y-3 bg-white">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#995B24] font-semibold">
-                <ShieldCheck size={16} />
-                <span>CAM KẾT BẢO MẬT BẢN THẢO</span>
-              </div>
-              <p className="text-xs text-[#5E584F] leading-relaxed font-sans">
-                Mọi ý tưởng, đề cương và trích đoạn bản thảo được gửi tới đều được bảo mật tuyệt đối theo nguyên tắc đạo đức nghề nghiệp xuất bản. Sẵn sàng ký kết thỏa thuận bảo mật thông tin (NDA) khi có yêu cầu từ tác giả hoặc đối tác.
-              </p>
-            </div>
-
-            {/* Social & Professional Networks */}
-            <div className="space-y-3 pt-2">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#8E877D] block">
-                MẠNG LƯỚI & ẤN PHẨM KHÁC
-              </span>
-              <div className="flex flex-wrap gap-2 text-xs font-mono">
-                {['Goodreads', 'LinkedIn', 'Substack Văn chương', 'Hội đồng Sách Việt Nam'].map((network) => (
-                  <span
-                    key={network}
-                    className="px-3 py-1 bg-[#F4EFEA] border border-[#E6E1D8] text-[#5E584F]"
-                  >
-                    {network}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <span className="text-xs text-[#6B7280] font-mono">
+              Phản hồi thường lệ trong vòng 24 - 48 giờ
+            </span>
           </div>
 
-          {/* Right Column: Inquiry Form (7 cols) */}
-          <div className="lg:col-span-7 bg-white border border-[#E5E7EB] p-8 sm:p-10 shadow-xs">
-            {isSubmitted ? (
-              <div
-                id="contact-form-success-state"
-                className="py-12 text-center space-y-6 animate-in fade-in duration-300"
-              >
-                <div className="w-12 h-12 rounded-full bg-amber-50 border border-[#995B24] text-[#995B24] flex items-center justify-center mx-auto">
-                  <CheckCircle2 size={24} />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-2xl sm:text-3xl font-bold text-[#1C1A17]">
-                    Đã tiếp nhận lời nhắn của bạn
-                  </h3>
-                  <p className="text-sm text-[#4B5563] max-w-md mx-auto leading-relaxed">
-                    Cảm ơn bạn đã gửi thông tin về tác phẩm. Linh Đặng sẽ xem xét cẩn trọng và phản hồi tới email <span className="font-semibold text-[#1C1A17]">{formData.email}</span> trong thời gian sớm nhất.
-                  </p>
-                </div>
+          <div className="space-y-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#1C1A17]">
+              Ưu tiên trao đổi qua Email
+            </h2>
+            <p className="text-sm text-[#4B5563] leading-relaxed max-w-2xl">
+              Để đảm bảo bản thảo, đề cương dự án và tài liệu được lưu trữ, theo dõi mạch lạc và bảo mật thông tin, tôi luôn ưu tiên nhận và trao đổi công việc trực tiếp qua hòm thư điện tử.
+            </p>
+          </div>
 
-                <div className="pt-4 flex justify-center">
-                  <button
-                    id="submit-another-inquiry-btn"
-                    onClick={handleReset}
-                    className="px-6 py-2.5 bg-[#1C1A17] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#33302B] transition-colors cursor-pointer"
-                  >
-                    Gửi đề xuất khác
-                  </button>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            {/* Primary Email */}
+            <div className="p-4 bg-[#F9FAFB] border border-[#E5E7EB] flex items-center justify-between gap-3">
+              <div className="space-y-0.5 min-w-0">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6B7280] block">
+                  Email chính (Hộp thư nhận việc)
+                </span>
+                <a
+                  href={`mailto:${primaryEmail}`}
+                  className="text-base sm:text-lg font-mono font-bold text-[#1C1A17] hover:text-[#995B24] transition-colors truncate block"
+                  title={`Gửi mail tới ${primaryEmail}`}
+                >
+                  {primaryEmail}
+                </a>
               </div>
-            ) : (
-              <form id="manuscript-inquiry-form" onSubmit={handleSubmit} className="space-y-6">
-                <div className="border-b border-[#E5E7EB] pb-4">
-                  <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
-                    PHIẾU ĐỀ XUẤT HỢP TÁC
-                  </span>
-                  <h3 className="text-2xl font-bold text-[#1C1A17]">
-                    Gửi thông tin dự án hoặc bản thảo
-                  </h3>
-                </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => handleCopyEmail(primaryEmail)}
+                  className="p-2 text-[#4B5563] hover:text-[#1C1A17] hover:bg-white rounded-sm border border-transparent hover:border-[#E5E7EB] transition-all cursor-pointer"
+                  title="Sao chép email"
+                >
+                  {copiedEmail === primaryEmail ? <Check size={16} className="text-emerald-600" /> : <Copy size={16} />}
+                </button>
+                <a
+                  href={`mailto:${primaryEmail}`}
+                  className="p-2 text-[#1C1A17] hover:bg-white rounded-sm border border-transparent hover:border-[#E5E7EB] transition-all"
+                  title="Mở ứng dụng thư"
+                >
+                  <Send size={16} />
+                </a>
+              </div>
+            </div>
 
-                {/* Form fields */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="space-y-1.5">
-                    <label
-                      htmlFor="input-name"
-                      className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
-                    >
-                      Họ và tên tác giả / Người liên hệ *
-                    </label>
-                    <input
-                      id="input-name"
-                      type="text"
-                      required
-                      placeholder="Nguyễn Văn A"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label
-                      htmlFor="input-email"
-                      className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
-                    >
-                      Địa chỉ Email phản hồi *
-                    </label>
-                    <input
-                      id="input-email"
-                      type="email"
-                      required
-                      placeholder="ban@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="space-y-1.5">
-                    <label
-                      htmlFor="input-org"
-                      className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
-                    >
-                      Đơn vị / Vai trò
-                    </label>
-                    <input
-                      id="input-org"
-                      type="text"
-                      placeholder="Tác giả độc lập / NXB / Tổ chức"
-                      value={formData.organization}
-                      onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                      className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label
-                      htmlFor="input-service"
-                      className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
-                    >
-                      Hạng mục quan tâm *
-                    </label>
-                    <select
-                      id="input-service"
-                      value={formData.serviceType}
-                      onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                      className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors cursor-pointer"
-                    >
-                      <option value="Thẩm định bản thảo">Thẩm định bản thảo (Appraisal)</option>
-                      <option value="Biên tập bản thảo chuyên sâu">Biên tập bản thảo chuyên sâu (Developmental Editing)</option>
-                      <option value="Dịch thuật tác phẩm văn học & học thuật">Dịch thuật văn học & học thuật</option>
-                      <option value="Cố vấn phát triển xuất bản">Cố vấn phát triển xuất bản</option>
-                      <option value="Tham gia tọa đàm & viết bài">Tham gia tọa đàm & viết bài</option>
-                      <option value="Khác">Trao đổi nội dung khác</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label
-                    htmlFor="input-project-title"
-                    className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
-                  >
-                    Tên dự án / Nhan đề bản thảo dự kiến
-                  </label>
-                  <input
-                    id="input-project-title"
-                    type="text"
-                    placeholder="Ví dụ: Tiểu thuyết, Tuyển tập tản văn hoặc Tác phẩm khảo cứu..."
-                    value={formData.projectTitle}
-                    onChange={(e) => setFormData({ ...formData, projectTitle: e.target.value })}
-                    className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label
-                    htmlFor="input-link"
-                    className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
-                  >
-                    Liên kết tóm tắt đề cương / Mẫu bản thảo (Nếu có)
-                  </label>
-                  <input
-                    id="input-link"
-                    type="url"
-                    placeholder="https://drive.google.com/... hoặc link Dropbox, Notion"
-                    value={formData.manuscriptLink}
-                    onChange={(e) => setFormData({ ...formData, manuscriptLink: e.target.value })}
-                    className="w-full bg-white border border-[#E5E7EB] px-3.5 py-2 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label
-                    htmlFor="input-message"
-                    className="text-xs uppercase tracking-wider text-[#4B5563] font-semibold block"
-                  >
-                    Lời nhắn & Mục tiêu của cuốn sách *
-                  </label>
-                  <textarea
-                    id="input-message"
-                    required
-                    rows={4}
-                    placeholder="Chia sẻ ngắn gọn về tiến độ bản thảo, đối tượng độc giả mong muốn tiếp cận, hoặc những băn khoăn cụ thể bạn muốn người biên tập hỗ trợ..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-white border border-[#E5E7EB] p-3.5 text-sm text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] transition-colors"
-                  />
-                </div>
-
-                <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <span className="text-xs text-[#9CA3AF]">
-                    * Thông tin được bảo mật tuyệt đối theo chuẩn mực xuất bản.
-                  </span>
-
-                  <button
-                    id="submit-inquiry-btn"
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full sm:w-auto px-8 py-3 bg-[#1C1A17] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#33302B] disabled:opacity-50 transition-colors flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    {isSubmitting ? (
-                      <span>Đang gửi thư...</span>
-                    ) : (
-                      <>
-                        <span>Gửi thư trao đổi</span>
-                        <Send size={13} />
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
-            )}
+            {/* Work / Domain Email */}
+            <div className="p-4 bg-[#F9FAFB] border border-[#E5E7EB] flex items-center justify-between gap-3">
+              <div className="space-y-0.5 min-w-0">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6B7280] block">
+                  Email tên miền xuất bản
+                </span>
+                <a
+                  href={`mailto:${workEmail}`}
+                  className="text-base sm:text-lg font-mono font-bold text-[#1C1A17] hover:text-[#995B24] transition-colors truncate block"
+                  title={`Gửi mail tới ${workEmail}`}
+                >
+                  {workEmail}
+                </a>
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => handleCopyEmail(workEmail)}
+                  className="p-2 text-[#4B5563] hover:text-[#1C1A17] hover:bg-white rounded-sm border border-transparent hover:border-[#E5E7EB] transition-all cursor-pointer"
+                  title="Sao chép email"
+                >
+                  {copiedEmail === workEmail ? <Check size={16} className="text-emerald-600" /> : <Copy size={16} />}
+                </button>
+                <a
+                  href={`mailto:${workEmail}`}
+                  className="p-2 text-[#1C1A17] hover:bg-white rounded-sm border border-transparent hover:border-[#E5E7EB] transition-all"
+                  title="Mở ứng dụng thư"
+                >
+                  <Send size={16} />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Social Networks & Professional Profiles */}
+        <div className="space-y-4">
+          <div className="border-b border-[#E5E7EB] pb-3">
+            <h3 className="text-lg font-bold text-[#1C1A17]">
+              Mạng xã hội & Hồ sơ trực tuyến
+            </h3>
+            <p className="text-xs text-[#6B7280]">
+              Kết nối và theo dõi các hoạt động văn hóa, bài viết chuyên môn và cập nhật xuất bản
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* LinkedIn */}
+            <a
+              id="contact-link-linkedin"
+              href={linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-5 bg-white border border-[#E5E7EB] hover:border-[#0A66C2] hover:shadow-sm transition-all flex items-center justify-between"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xs bg-[#F0F6FC] text-[#0A66C2] flex items-center justify-center group-hover:bg-[#0A66C2] group-hover:text-white transition-colors">
+                  <Linkedin size={22} />
+                </div>
+                <div>
+                  <span className="text-xs uppercase font-semibold text-[#6B7280] tracking-wider block">
+                    Mạng lưới chuyên nghiệp
+                  </span>
+                  <span className="text-base font-bold text-[#1C1A17] group-hover:text-[#0A66C2] transition-colors">
+                    LinkedIn
+                  </span>
+                  <span className="text-xs text-[#6B7280] block">
+                    Hồ sơ kinh nghiệm & chứng nhận xuất bản
+                  </span>
+                </div>
+              </div>
+              <ArrowUpRight size={18} className="text-[#9CA3AF] group-hover:text-[#0A66C2] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+            </a>
+
+            {/* Facebook */}
+            <a
+              id="contact-link-facebook"
+              href={facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-5 bg-white border border-[#E5E7EB] hover:border-[#1877F2] hover:shadow-sm transition-all flex items-center justify-between"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xs bg-[#E7F3FF] text-[#1877F2] flex items-center justify-center group-hover:bg-[#1877F2] group-hover:text-white transition-colors">
+                  <Facebook size={22} />
+                </div>
+                <div>
+                  <span className="text-xs uppercase font-semibold text-[#6B7280] tracking-wider block">
+                    Trang cá nhân & Tương tác
+                  </span>
+                  <span className="text-base font-bold text-[#1C1A17] group-hover:text-[#1877F2] transition-colors">
+                    Facebook
+                  </span>
+                  <span className="text-xs text-[#6B7280] block">
+                    Cập nhật sách mới, sự kiện & kết nối tác giả
+                  </span>
+                </div>
+              </div>
+              <ArrowUpRight size={18} className="text-[#9CA3AF] group-hover:text-[#1877F2] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+            </a>
+          </div>
+        </div>
+
+        {/* Working Guidelines / Commitments */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <div className="p-5 bg-white border border-[#E5E7EB] space-y-2">
+            <div className="w-8 h-8 rounded-full bg-[#F3F4F6] text-[#1C1A17] flex items-center justify-center">
+              <ShieldCheck size={18} />
+            </div>
+            <h4 className="text-sm font-bold text-[#1C1A17]">Bảo mật bản thảo (NDA)</h4>
+            <p className="text-xs text-[#6B7280] leading-relaxed">
+              Mọi tài liệu, bản thảo chưa công bố và trao đổi nội bộ đều được cam kết bảo mật tuyệt đối.
+            </p>
+          </div>
+
+          <div className="p-5 bg-white border border-[#E5E7EB] space-y-2">
+            <div className="w-8 h-8 rounded-full bg-[#F3F4F6] text-[#1C1A17] flex items-center justify-center">
+              <Clock size={18} />
+            </div>
+            <h4 className="text-sm font-bold text-[#1C1A17]">Thời gian phản hồi</h4>
+            <p className="text-xs text-[#6B7280] leading-relaxed">
+              Phản hồi email sơ bộ trong 24-48 giờ; thời gian thẩm định bản thảo từ 5-10 ngày làm việc.
+            </p>
+          </div>
+
+          <div className="p-5 bg-white border border-[#E5E7EB] space-y-2">
+            <div className="w-8 h-8 rounded-full bg-[#F3F4F6] text-[#1C1A17] flex items-center justify-center">
+              <MapPin size={18} />
+            </div>
+            <h4 className="text-sm font-bold text-[#1C1A17]">Địa bàn làm việc</h4>
+            <p className="text-xs text-[#6B7280] leading-relaxed">
+              Làm việc từ xa linh hoạt toàn cầu; sẵn sàng gặp mặt trực tiếp tại Hà Nội hoặc TP. Hồ Chí Minh.
+            </p>
+          </div>
+        </div>
+
       </div>
     </section>
   );

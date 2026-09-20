@@ -24,7 +24,6 @@ export default function App() {
 
   const [activePage, setActivePage] = useState<string>(getInitialPage);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [contactSubject, setContactSubject] = useState<string>('Thẩm định bản thảo');
 
   // Synchronize with browser Back / Forward buttons via hashchange
   useEffect(() => {
@@ -47,16 +46,6 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  const handleInquireProject = (projectTitle: string) => {
-    setContactSubject(`Dự án tương tự: ${projectTitle}`);
-    handleNavigate('lien-he');
-  };
-
-  const handleSelectServiceForInquiry = (serviceTitle: string) => {
-    setContactSubject(serviceTitle);
-    handleNavigate('lien-he');
-  };
-
   // Render the single active page
   const renderCurrentPage = () => {
     switch (activePage) {
@@ -65,15 +54,14 @@ export default function App() {
       case 'gioi-thieu':
         return <AboutSection />;
       case 'kinh-nghiem':
-        return <ExperienceSection onSelectServiceForInquiry={handleSelectServiceForInquiry} />;
+        return <ExperienceSection onSelectServiceForInquiry={() => handleNavigate('lien-he')} />;
       case 'lien-he':
-        return <ContactSection initialSubject={contactSubject} />;
+        return <ContactSection />;
       case 'trang-chu':
       default:
         return (
           <Hero
             onExploreProjects={() => handleNavigate('du-an')}
-            onContactClick={() => handleNavigate('lien-he')}
             onNavigate={handleNavigate}
           />
         );
@@ -104,7 +92,7 @@ export default function App() {
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
-        onInquire={handleInquireProject}
+        onInquire={() => handleNavigate('lien-he')}
       />
     </div>
   );

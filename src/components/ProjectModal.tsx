@@ -5,7 +5,7 @@ import { X, Bookmark, Award } from 'lucide-react';
 interface ProjectModalProps {
   project: Project | null;
   onClose: () => void;
-  onInquire: (projectTitle: string) => void;
+  onInquire?: (projectTitle: string) => void;
 }
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, onInquire }) => {
@@ -244,16 +244,27 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
             Ấn phẩm được bảo hộ bản quyền xuất bản
           </span>
 
-          <button
-            id="modal-inquire-project-btn"
-            onClick={() => {
-              onInquire(project.title);
-              onClose();
-            }}
-            className="px-5 py-2.5 bg-[#1C1A17] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#33302B] transition-colors cursor-pointer"
-          >
-            Thảo luận dự án tương tự →
-          </button>
+          <div className="flex items-center gap-3">
+            {onInquire && (
+              <button
+                id="modal-inquire-project-btn"
+                onClick={() => {
+                  onInquire(project.title);
+                  onClose();
+                }}
+                className="px-5 py-2.5 bg-[#995B24] text-white text-xs uppercase tracking-wider font-semibold hover:bg-[#7D491C] transition-colors cursor-pointer"
+              >
+                Liên hệ hợp tác →
+              </button>
+            )}
+            <button
+              id="modal-close-btn"
+              onClick={onClose}
+              className="px-5 py-2.5 bg-gray-100 text-[#1C1A17] text-xs uppercase tracking-wider font-semibold hover:bg-gray-200 transition-colors cursor-pointer"
+            >
+              Đóng cửa sổ
+            </button>
+          </div>
         </div>
       </div>
     </div>
