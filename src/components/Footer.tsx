@@ -1,12 +1,17 @@
 import React from 'react';
-import { ArrowUp, BookOpen, Heart } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
+import { UI_TEXT } from '../data/translations';
 
 interface FooterProps {
   onNavigate: (sectionId: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const { language } = useLanguage();
+  const t = UI_TEXT[language].footer;
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -26,16 +31,16 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </span>
             </div>
             <p className="text-xs font-sans text-[#5E584F] max-w-lg">
-              Biên tập viên sách, dịch giả văn học & phi hư cấu, chuyên gia tư vấn xuất bản độc lập tại Việt Nam.
+              {t.tagline}
             </p>
           </div>
 
           <button
             id="footer-back-to-top-btn"
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#1C1A17] hover:text-[#995B24] transition-colors py-2 px-3 border border-[#E6E1D8] bg-[#FBF9F5]"
+            className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#1C1A17] hover:text-[#995B24] transition-colors py-2 px-3 border border-[#E6E1D8] bg-[#FBF9F5] cursor-pointer"
           >
-            <span>Về đầu trang</span>
+            <span>{t.backToTop}</span>
             <ArrowUp size={13} />
           </button>
         </div>
@@ -43,56 +48,60 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         {/* Middle Colophon Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-xs font-mono">
           <div className="space-y-2">
-            <span className="text-[#1C1A17] uppercase font-semibold block">ĐỊNH VỊ CÁ NHÂN</span>
-            <p className="text-[#6B665E] leading-relaxed">
-              Hà Nội & TP. Hồ Chí Minh<br />
-              Chuyên trách: Sách dịch, Triết học, Mỹ thuật sách
+            <span className="text-[#1C1A17] uppercase font-semibold block">{t.personalPositioningTitle}</span>
+            <p className="text-[#6B665E] leading-relaxed whitespace-pre-line">
+              {t.personalPositioningDesc}
             </p>
           </div>
 
           <div className="space-y-2">
-            <span className="text-[#1C1A17] uppercase font-semibold block">ĐIỀU HƯỚNG NHANH</span>
+            <span className="text-[#1C1A17] uppercase font-semibold block">{t.fastNavTitle}</span>
             <ul className="space-y-1 text-[#6B665E]">
               <li>
                 <button onClick={() => onNavigate('trang-chu')} className="hover:text-[#1C1A17] cursor-pointer">
-                  Trang chủ
+                  {t.navHome}
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('du-an')} className="hover:text-[#1C1A17] cursor-pointer">
-                  Các dự án tiêu biểu
+                  {t.navProjects}
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('gioi-thieu')} className="hover:text-[#1C1A17] cursor-pointer">
-                  Giới thiệu & Triết lý
+                  {t.navAbout}
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('kinh-nghiem')} className="hover:text-[#1C1A17] cursor-pointer">
-                  Kinh nghiệm & Dịch vụ
+                  {t.navExperience}
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('suy-ngam')} className="hover:text-[#1C1A17] cursor-pointer">
+                  {t.navEssays}
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('lien-he')} className="hover:text-[#1C1A17] cursor-pointer">
-                  Liên hệ & Hợp tác
+                  {t.navContact}
                 </button>
               </li>
             </ul>
           </div>
 
           <div className="space-y-2">
-            <span className="text-[#1C1A17] uppercase font-semibold block">GHI CHÚ MỸ THUẬT (COLOPHON)</span>
+            <span className="text-[#1C1A17] uppercase font-semibold block">{t.colophonTitle}</span>
             <p className="text-[#6B665E] leading-relaxed">
-              Trang web được thiết kế theo phong cách xuất bản tĩnh lặng: kiểu chữ Nunito, màu giấy ngà tự nhiên (#FBF9F5) và mực đen ấm (#1C1A17).
+              {t.colophonDesc}
             </p>
           </div>
 
           <div className="space-y-2">
-            <span className="text-[#1C1A17] uppercase font-semibold block">LIÊN HỆ TRỰC TIẾP</span>
+            <span className="text-[#1C1A17] uppercase font-semibold block">{t.directContactTitle}</span>
             <p className="text-[#6B665E] leading-relaxed">
               Email: {PERSONAL_INFO.email}<br />
-              Dự phòng: {PERSONAL_INFO.secondaryEmail}
+              {t.backupEmailLabel}: {PERSONAL_INFO.secondaryEmail}
             </p>
           </div>
         </div>
@@ -100,13 +109,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         {/* Bottom Copyright */}
         <div className="pt-8 border-t border-[#E6E1D8] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-[#8E877D]">
           <div>
-            © 2013 – 2026 Linh Đặng (linhdang.id.vn). Bảo lưu mọi quyền xuất bản và trích dẫn.
+            {t.copyright}
           </div>
           <div>
-            Biên tập viên · Dịch giả · Chuyên gia Xuất bản Việt Nam
+            {t.subtitle}
           </div>
         </div>
       </div>
     </footer>
   );
 };
+

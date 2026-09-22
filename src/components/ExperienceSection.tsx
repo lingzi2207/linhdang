@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { EXPERIENCES, PUBLISHING_SERVICES } from '../data/portfolioData';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { UI_TEXT, EXPERIENCES_BILINGUAL, SERVICES_BILINGUAL } from '../data/translations';
 
 interface ExperienceSectionProps {
   onSelectServiceForInquiry: (serviceTitle: string) => void;
@@ -8,6 +9,10 @@ interface ExperienceSectionProps {
 
 export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectServiceForInquiry }) => {
   const [activeTab, setActiveTab] = useState<'timeline' | 'services'>('timeline');
+  const { language } = useLanguage();
+  const t = UI_TEXT[language].experience;
+  const experiences = EXPERIENCES_BILINGUAL[language];
+  const services = SERVICES_BILINGUAL[language];
 
   return (
     <section id="kinh-nghiem" className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-[#E5E7EB] bg-white">
@@ -16,13 +21,13 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#E5E7EB]">
           <div className="space-y-3">
             <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
-              HÀNH TRÌNH NGHỀ NGHIỆP · 2013 – 2026
+              {t.sectionBadge}
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-[#1C1A17] tracking-tight">
-              Kinh nghiệm & Dịch vụ chuyên môn
+              {t.title}
             </h2>
             <p className="text-base text-[#4B5563] max-w-2xl leading-relaxed">
-              Hơn một thập kỷ gắn bó với các nhà xuất bản hàng đầu và mạng lưới tác giả trong và ngoài nước, cung cấp các giải pháp hoàn thiện bản thảo chuẩn mực.
+              {t.desc}
             </p>
           </div>
 
@@ -37,7 +42,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
                   : 'text-[#6B7280] hover:text-[#1C1A17]'
               }`}
             >
-              Dấu mốc sự nghiệp
+              {t.tabTimeline}
             </button>
             <button
               id="exp-tab-services-btn"
@@ -48,7 +53,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
                   : 'text-[#6B7280] hover:text-[#1C1A17]'
               }`}
             >
-              Dịch vụ xuất bản
+              {t.tabServices}
             </button>
           </div>
         </div>
@@ -57,7 +62,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
         {activeTab === 'timeline' && (
           <div className="space-y-12 animate-in fade-in duration-300">
             <div className="relative border-l border-gray-300 ml-3 sm:ml-6 pl-8 sm:pl-12 space-y-12">
-              {EXPERIENCES.map((exp) => (
+              {experiences.map((exp) => (
                 <div key={exp.id} id={`exp-item-${exp.id}`} className="relative group">
                   {/* Timeline Node */}
                   <span className="absolute -left-[37px] sm:-left-[53px] top-1.5 w-3 h-3 rounded-full bg-white border-2 border-[#1C1A17] group-hover:scale-125 transition-transform" />
@@ -94,7 +99,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
                     {/* Highlights */}
                     <div className="bg-[#F9FAFB] border border-[#E5E7EB] p-5 max-w-3xl space-y-2.5">
                       <span className="text-xs uppercase tracking-widest text-[#9CA3AF] block mb-1 font-semibold">
-                        KẾT QUẢ & DỰ ÁN TRỌNG ĐIỂM:
+                        {t.keyProjectsHeader}
                       </span>
                       <ul className="space-y-2 text-xs text-[#4B5563]">
                         {exp.keyProjects.map((item, idx) => (
@@ -116,7 +121,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
         {activeTab === 'services' && (
           <div className="space-y-10 animate-in fade-in duration-300">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {PUBLISHING_SERVICES.map((srv) => (
+              {services.map((srv) => (
                 <div
                   key={srv.id}
                   id={`service-card-${srv.id}`}
@@ -138,7 +143,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
 
                     <div className="space-y-2 pt-2 border-t border-[#E5E7EB]">
                       <span className="text-xs uppercase tracking-wider text-[#9CA3AF] block font-semibold">
-                        PHẠM VI CÔNG VIỆC:
+                        {t.scopeHeader}
                       </span>
                       <ul className="space-y-1.5 text-xs text-[#201E1B]">
                         {srv.scope.map((s, i) => (
@@ -151,7 +156,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
                     </div>
 
                     <div className="bg-gray-50 border border-[#E5E7EB] p-3 text-xs text-[#4B5563]">
-                      <span className="text-[#9CA3AF] block text-[10px] uppercase font-semibold">Sản phẩm bàn giao:</span>
+                      <span className="text-[#9CA3AF] block text-[10px] uppercase font-semibold">{t.deliverableHeader}</span>
                       <span className="text-[#1C1A17] font-semibold">{srv.deliverable}</span>
                     </div>
                   </div>
@@ -161,7 +166,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
                     onClick={() => onSelectServiceForInquiry(srv.title)}
                     className="w-full py-2.5 bg-white border border-[#E5E7EB] hover:bg-[#1C1A17] hover:text-white hover:border-[#1C1A17] text-xs uppercase tracking-wider text-[#1C1A17] font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>Yêu cầu tư vấn dịch vụ này</span>
+                    <span>{t.requestService}</span>
                     <ArrowRight size={13} />
                   </button>
                 </div>
@@ -170,14 +175,14 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
 
             <div className="p-6 bg-[#F9FAFB] border border-[#E5E7EB] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-[#4B5563]">
               <div>
-                <span className="font-semibold text-[#1C1A17]">Cần một giải pháp xuất bản tùy chỉnh?</span>
-                <span className="block sm:inline sm:ml-2">Hỗ trợ trọn gói từ khâu bản thảo đến ấn bản hoàn thiện trên kệ sách.</span>
+                <span className="font-semibold text-[#1C1A17]">{t.customSolutionTitle}</span>
+                <span className="block sm:inline sm:ml-2">{t.customSolutionDesc}</span>
               </div>
               <button
-                onClick={() => onSelectServiceForInquiry('Tư vấn xuất bản trọn gói')}
+                onClick={() => onSelectServiceForInquiry(language === 'vi' ? 'Tư vấn xuất bản trọn gói' : 'Comprehensive Publishing Consultation')}
                 className="text-[#995B24] font-semibold underline hover:text-[#1C1A17] shrink-0 cursor-pointer"
               >
-                Gửi câu hỏi trực tiếp →
+                {t.customSolutionAction}
               </button>
             </div>
           </div>
@@ -186,3 +191,4 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onSelectSe
     </section>
   );
 };
+

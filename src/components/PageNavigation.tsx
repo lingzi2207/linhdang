@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { NAV_PAGES, UI_TEXT } from '../data/translations';
 
 export interface PageInfo {
   id: string;
@@ -8,13 +10,12 @@ export interface PageInfo {
   pageNum: string;
 }
 
-export const PAGES: PageInfo[] = [
-  { id: 'trang-chu', label: 'Trang chủ', shortLabel: 'Trang chủ', pageNum: '01' },
-  { id: 'du-an', label: 'Dự án tiêu biểu', shortLabel: 'Dự án tiêu biểu', pageNum: '02' },
-  { id: 'gioi-thieu', label: 'Giới thiệu & Triết lý', shortLabel: 'Giới thiệu', pageNum: '03' },
-  { id: 'kinh-nghiem', label: 'Kinh nghiệm & Dịch vụ', shortLabel: 'Kinh nghiệm', pageNum: '04' },
-  { id: 'lien-he', label: 'Liên hệ & Hợp tác', shortLabel: 'Liên hệ', pageNum: '05' },
-];
+export const PAGES: PageInfo[] = NAV_PAGES.map((p) => ({
+  id: p.id,
+  label: p.label.vi,
+  shortLabel: p.shortLabel.vi,
+  pageNum: p.pageNum,
+}));
 
 interface PageNavigationProps {
   currentPage: string;
@@ -22,9 +23,12 @@ interface PageNavigationProps {
 }
 
 export const PageNavigation: React.FC<PageNavigationProps> = ({ currentPage, onNavigate }) => {
-  const currentIndex = PAGES.findIndex((p) => p.id === currentPage);
-  const prevPage = currentIndex > 0 ? PAGES[currentIndex - 1] : null;
-  const nextPage = currentIndex < PAGES.length - 1 ? PAGES[currentIndex + 1] : null;
+  const { language } = useLanguage();
+  const t = UI_TEXT[language].nav;
+  
+  const currentIndex = NAV_PAGES.findIndex((p) => p.id === currentPage);
+  const prevPage = currentIndex > 0 ? NAV_PAGES[currentIndex - 1] : null;
+  const nextPage = currentIndex < NAV_PAGES.length - 1 ? NAV_PAGES[currentIndex + 1] : null;
 
   // Keyboard navigation support: Left Arrow -> Previous page, Right Arrow -> Next page
   useEffect(() => {
@@ -56,7 +60,7 @@ export const PageNavigation: React.FC<PageNavigationProps> = ({ currentPage, onN
                 className="group flex items-center gap-2.5 px-4 py-2.5 bg-[#F4EFEA] hover:bg-[#EAE4DC] border border-[#E6E1D8] text-[#1C1A17] transition-all text-sm font-medium w-full sm:w-auto cursor-pointer"
               >
                 <ArrowLeft size={16} className="text-[#995B24] group-hover:-translate-x-1 transition-transform" />
-                <span>Trang trước: <strong className="font-semibold">{prevPage.shortLabel}</strong></span>
+                <span>{t.prevPage} <strong className="font-semibold">{prevPage.shortLabel[language]}</strong></span>
               </button>
             ) : (
               <div className="hidden sm:block" />
@@ -65,7 +69,7 @@ export const PageNavigation: React.FC<PageNavigationProps> = ({ currentPage, onN
 
           {/* Center: Clean page tabs */}
           <div className="flex items-center gap-1.5">
-            {PAGES.map((page) => {
+            {NAV_PAGES.map((page) => {
               const isActive = page.id === currentPage;
               return (
                 <button
@@ -78,7 +82,7 @@ export const PageNavigation: React.FC<PageNavigationProps> = ({ currentPage, onN
                       : 'bg-[#FBF9F5] text-[#5E584F] border-[#E6E1D8] hover:bg-[#F4EFEA] hover:text-[#1C1A17]'
                   }`}
                 >
-                  {page.shortLabel}
+                  {page.shortLabel[language]}
                 </button>
               );
             })}
@@ -92,7 +96,7 @@ export const PageNavigation: React.FC<PageNavigationProps> = ({ currentPage, onN
                 onClick={() => onNavigate(nextPage.id)}
                 className="group flex items-center gap-2.5 px-4 py-2.5 bg-[#1C1A17] hover:bg-[#33302B] text-[#FBF9F5] transition-all text-sm font-medium w-full sm:w-auto justify-center sm:justify-end cursor-pointer"
               >
-                <span>Trang kế tiếp: <strong className="font-semibold">{nextPage.shortLabel}</strong></span>
+                <span>{t.nextPage} <strong className="font-semibold">{nextPage.shortLabel[language]}</strong></span>
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
             ) : (
@@ -101,7 +105,7 @@ export const PageNavigation: React.FC<PageNavigationProps> = ({ currentPage, onN
                 onClick={() => onNavigate('trang-chu')}
                 className="group flex items-center gap-2 px-4 py-2.5 bg-[#F4EFEA] hover:bg-[#EAE4DC] border border-[#E6E1D8] text-[#1C1A17] transition-all text-sm font-medium cursor-pointer"
               >
-                <span>Về Trang chủ</span>
+                <span>{t.backHome}</span>
                 <BookOpen size={15} className="text-[#995B24]" />
               </button>
             )}
@@ -111,3 +115,4 @@ export const PageNavigation: React.FC<PageNavigationProps> = ({ currentPage, onN
     </div>
   );
 };
+

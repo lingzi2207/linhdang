@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { BookOpen, X, Clock, Calendar, ArrowRight, Minus, Plus } from 'lucide-react';
-import { EDITORIAL_ARTICLES } from '../data/portfolioData';
+import { X } from 'lucide-react';
 import { EditorialArticle } from '../types';
+import { useLanguage } from '../context/LanguageContext';
+import { UI_TEXT, ARTICLES_BILINGUAL } from '../data/translations';
 
 export const EditorialNotes: React.FC = () => {
   const [selectedArticle, setSelectedArticle] = useState<EditorialArticle | null>(null);
   const [fontSize, setFontSize] = useState<'normal' | 'large'>('normal');
+  const { language } = useLanguage();
+  const t = UI_TEXT[language].editorialNotes;
+  const articles = ARTICLES_BILINGUAL[language];
 
   return (
     <section id="suy-ngam" className="pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-[#E6E1D8] bg-[#FBF9F5]">
@@ -14,12 +18,12 @@ export const EditorialNotes: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#E6E1D8] text-xs font-mono text-[#6B665E]">
           <div className="flex items-center gap-2">
             <span className="inline-block w-2 h-2 rounded-full bg-[#995B24]" />
-            <span className="font-semibold text-[#1C1A17]">TRANG 05 / 06 · SUY NGẪM BÊN BÀN CHỮ</span>
+            <span className="font-semibold text-[#1C1A17]">{t.stripLeft}</span>
           </div>
           <div className="flex items-center gap-4">
-            <span>CHUYÊN ĐỀ: TIỂU LUẬN NGHỀ NGHIỆP</span>
+            <span>{t.stripMiddle}</span>
             <span className="text-[#C8C1B4]">|</span>
-            <span>3 BÀI VIẾT</span>
+            <span>{t.stripRight}</span>
           </div>
         </div>
 
@@ -27,24 +31,24 @@ export const EditorialNotes: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#E6E1D8]">
           <div className="space-y-3">
             <span className="text-xs font-mono uppercase tracking-widest text-[#995B24] font-semibold">
-              GÓC NHÌN BIÊN TẬP & VĂN HÓA ĐỌC
+              {t.sectionBadge}
             </span>
             <h2 className="font-serif-editorial text-3xl sm:text-5xl font-light text-[#1C1A17] tracking-tight">
-              Suy ngẫm bên bàn chữ
+              {t.title}
             </h2>
             <p className="text-base text-[#5E584F] max-w-2xl font-serif-editorial font-light leading-relaxed">
-              Những tiểu luận ngắn và trăn trở nghề nghiệp về nghệ thuật dịch thuật, cấu trúc văn bản và vật tính của cuốn sách in trong thời đại số.
+              {t.desc}
             </p>
           </div>
 
           <span className="text-xs font-mono text-[#8E877D] self-start md:self-end">
-            3 TIỂU LUẬN TUYỂN CHỌN
+            {t.curatedCount}
           </span>
         </div>
 
         {/* Articles List */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {EDITORIAL_ARTICLES.map((article) => (
+          {articles.map((article) => (
             <article
               key={article.id}
               id={`article-card-${article.id}`}
@@ -74,7 +78,7 @@ export const EditorialNotes: React.FC = () => {
               <div className="pt-4 border-t border-[#E6E1D8]/60 flex items-center justify-between text-xs font-mono text-[#1C1A17]">
                 <span className="text-[#8E877D]">{article.date}</span>
                 <span className="inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform font-medium">
-                  Đọc toàn văn →
+                  {t.readFullArticle}
                 </span>
               </div>
             </article>
@@ -109,14 +113,14 @@ export const EditorialNotes: React.FC = () => {
                   <button
                     onClick={() => setFontSize('normal')}
                     className={`px-2 py-1 ${fontSize === 'normal' ? 'bg-[#1C1A17] text-white' : 'text-[#6B665E]'}`}
-                    title="Cỡ chữ chuẩn"
+                    title={t.fontNormal}
                   >
                     A
                   </button>
                   <button
                     onClick={() => setFontSize('large')}
                     className={`px-2 py-1 text-sm ${fontSize === 'large' ? 'bg-[#1C1A17] text-white' : 'text-[#6B665E]'}`}
-                    title="Cỡ chữ lớn"
+                    title={t.fontLarge}
                   >
                     A+
                   </button>
@@ -125,8 +129,8 @@ export const EditorialNotes: React.FC = () => {
                 <button
                   id="close-article-reader-btn"
                   onClick={() => setSelectedArticle(null)}
-                  className="p-1.5 text-[#6B665E] hover:text-[#1C1A17] hover:bg-[#F4EFEA] transition-colors"
-                  aria-label="Đóng bài viết"
+                  className="p-1.5 text-[#6B665E] hover:text-[#1C1A17] hover:bg-[#F4EFEA] transition-colors cursor-pointer"
+                  aria-label={t.closeArticle}
                 >
                   <X size={20} />
                 </button>
@@ -142,7 +146,7 @@ export const EditorialNotes: React.FC = () => {
                 {selectedArticle.subtitle}
               </p>
               <div className="text-xs font-mono text-[#8E877D] pt-2">
-                Tác giả: Linh Đặng · linhdang.id.vn
+                {t.authorCredit}
               </div>
             </div>
 
@@ -165,10 +169,10 @@ export const EditorialNotes: React.FC = () => {
             {/* End Colophon */}
             <div className="max-w-2xl mx-auto pt-8 border-t border-[#E6E1D8] text-center space-y-2">
               <div className="text-xs font-mono uppercase tracking-widest text-[#8E877D]">
-                — HẾT BÀI —
+                {t.endColophon}
               </div>
               <p className="text-xs font-mono text-[#6B665E]">
-                Mọi trích dẫn vui lòng ghi rõ nguồn: Linh Đặng (linhdang.id.vn)
+                {t.citeNotice}
               </p>
             </div>
           </div>
@@ -177,3 +181,4 @@ export const EditorialNotes: React.FC = () => {
     </section>
   );
 };
+

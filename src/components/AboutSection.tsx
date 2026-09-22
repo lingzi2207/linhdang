@@ -1,25 +1,12 @@
 import React from 'react';
-import { Quote, Feather, BookMarked, ShieldCheck, HeartHandshake } from 'lucide-react';
-import { PERSONAL_INFO, TESTIMONIALS } from '../data/portfolioData';
+import { Quote } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { UI_TEXT, TESTIMONIALS_BILINGUAL } from '../data/translations';
 
 export const AboutSection: React.FC = () => {
-  const principles = [
-    {
-      num: 'I',
-      title: 'Tôn trọng giọng điệu nguyên bản',
-      desc: 'Mỗi tác giả mang một nhịp thở và cấu trúc tâm lý riêng. Nhiệm vụ của người biên tập không phải là gò tác phẩm vào thói quen ngôn ngữ của mình, mà là giúp giọng nói nguyên thủy của tác giả vang lên trong trẻo nhất.'
-    },
-    {
-      num: 'II',
-      title: 'Sự nhạy cảm với ngữ cảnh tiếng Việt',
-      desc: 'Ngôn ngữ luôn vận động. Khi dịch hay hiệu đính, ta phải cân bằng giữa tính chính xác học thuật của từ gốc với nhạc tính, sức gợi cảm xúc và độ mềm mại tự nhiên của tiếng Việt đương đại.'
-    },
-    {
-      num: 'III',
-      title: 'Đạo đức của sự ẩn mình',
-      desc: 'Người làm bản thảo giỏi nhất là người hoàn toàn vô hình trong mắt độc giả. Khi cuốn sách mở ra, chỉ có cuộc đối thoại thầm kín và trọn vẹn giữa người viết và người đọc.'
-    }
-  ];
+  const { language } = useLanguage();
+  const t = UI_TEXT[language].about;
+  const testimonials = TESTIMONIALS_BILINGUAL[language];
 
   return (
     <section id="gioi-thieu" className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-[#E5E7EB] bg-white">
@@ -27,10 +14,10 @@ export const AboutSection: React.FC = () => {
         {/* Section Header */}
         <div className="max-w-3xl space-y-4">
           <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
-            CHÂN DUNG & TRIẾT LÝ NGHỀ NGHIỆP
+            {t.sectionBadge}
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#1C1A17] tracking-tight leading-tight">
-            Người đứng sau bóng con chữ và hành trình làm người gác cổng bản thảo.
+            {t.heading}
           </h2>
         </div>
 
@@ -39,25 +26,25 @@ export const AboutSection: React.FC = () => {
           {/* Left Column: Narrative (7 cols) */}
           <div className="lg:col-span-7 space-y-6 text-[#201E1B] text-base sm:text-lg leading-relaxed">
             <p className="first-letter:text-5xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-[#995B24] first-letter:leading-none">
-              Tôi bắt đầu bước chân vào ngành xuất bản từ năm 2013, giữa giai đoạn thị trường sách Việt Nam đang chuyển mình mạnh mẽ về cả số lượng lẫn tiêu chuẩn mỹ thuật ấn phẩm. Trải qua hơn 12 năm làm việc với các bản thảo văn học, triết học, tản văn và sách nghệ thuật, tôi luôn giữ nguyên niềm say mê thuở ban đầu: sự hồi hộp khi mở một trang văn bản mới tinh chưa ai chạm bút.
+              {t.bioP1}
             </p>
 
             <p>
-              Đối với tôi, một cuốn sách không phải là một sản phẩm thương mại thông thường được sản xuất hàng loạt. Nó là một tác phẩm chứa đựng thời gian, trí tuệ và cả những trăn trở sâu xa của một kiếp người. Dù ở vai trò biên tập viên cấu trúc (developmental editor), người hiệu đính (copy editor) hay dịch giả trực tiếp, tôi đều xem bản thân là người cộng sự trung thành nhất của tác giả.
+              {t.bioP2}
             </p>
 
             <p>
-              Những năm tháng làm việc tại các nhà xuất bản hàng đầu như Nhã Nam, Kim Đồng, Omega Plus và NXB Trẻ đã cho tôi cơ hội trực tiếp tham gia hội chợ sách quốc tế Frankfurt, trao đổi bản quyền với các đại diện văn học khắp thế giới, và đặc biệt là rèn luyện sự khiêm nhường sâu sắc trước kho tàng tri thức nhân loại.
+              {t.bioP3}
             </p>
 
             <div className="pt-4 border-t border-[#E5E7EB] flex flex-wrap gap-8 text-xs text-[#6B7280]">
               <div>
-                <span className="block text-[#9CA3AF] font-medium">NGÔN NGỮ LÀM VIỆC</span>
-                <span className="text-[#1C1A17] font-semibold">Tiếng Việt (Bản ngữ) · Tiếng Anh · Tiếng Pháp</span>
+                <span className="block text-[#9CA3AF] font-medium">{t.workingLanguagesLabel}</span>
+                <span className="text-[#1C1A17] font-semibold">{t.workingLanguagesVal}</span>
               </div>
               <div>
-                <span className="block text-[#9CA3AF] font-medium">CHUYÊN MÔN NỔI BẬT</span>
-                <span className="text-[#1C1A17] font-semibold">Văn học dịch, Khảo cứu Triết học, Nghệ thuật in</span>
+                <span className="block text-[#9CA3AF] font-medium">{t.expertiseLabel}</span>
+                <span className="text-[#1C1A17] font-semibold">{t.expertiseVal}</span>
               </div>
             </div>
           </div>
@@ -66,15 +53,15 @@ export const AboutSection: React.FC = () => {
           <div className="lg:col-span-5 bg-[#F9FAFB] border border-[#E5E7EB] p-8 sm:p-10 space-y-8">
             <div className="border-b border-[#E5E7EB] pb-4">
               <span className="text-xs uppercase tracking-widest text-[#9CA3AF] block mb-1 font-semibold">
-                NGUYÊN TẮC CỐT LÕI
+                {t.principlesBadge}
               </span>
               <h3 className="text-2xl font-bold text-[#1C1A17]">
-                Ba nguyên tắc của người làm bản thảo
+                {t.principlesTitle}
               </h3>
             </div>
 
             <div className="space-y-6">
-              {principles.map((item) => (
+              {t.principles.map((item) => (
                 <div key={item.num} className="space-y-1.5">
                   <div className="flex items-center gap-2.5">
                     <span className="text-xs font-mono font-semibold text-[#995B24] border border-[#995B24]/40 px-1.5 py-0.5">
@@ -92,7 +79,7 @@ export const AboutSection: React.FC = () => {
             </div>
 
             <div className="pt-2 border-t border-[#E5E7EB] text-xs text-[#9CA3AF]">
-              *Tuân thủ nghiêm ngặt chuẩn mực bảo mật bản thảo & quyền tác giả.
+              {t.confidentialityNote}
             </div>
           </div>
         </div>
@@ -101,36 +88,36 @@ export const AboutSection: React.FC = () => {
         <div className="pt-12 border-t border-[#E5E7EB] space-y-8">
           <div className="flex items-center justify-between">
             <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
-              CHIA SẺ TỪ ĐỒNG NGHIỆP & TÁC GIẢ
+              {t.testimonialsBadge}
             </span>
             <span className="text-xs text-[#9CA3AF]">
-              ĐÁNH GIÁ CHUYÊN MÔN
+              {t.testimonialsSubBadge}
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t) => (
+            {testimonials.map((item) => (
               <div
-                key={t.id}
-                id={`testimonial-${t.id}`}
+                key={item.id}
+                id={`testimonial-${item.id}`}
                 className="bg-white border border-[#E5E7EB] p-6 sm:p-7 flex flex-col justify-between space-y-6 shadow-xs"
               >
                 <div className="space-y-4">
                   <Quote size={20} className="text-gray-300" />
                   <p className="text-sm sm:text-base italic text-[#201E1B] leading-relaxed">
-                    “{t.quote}”
+                    “{item.quote}”
                   </p>
                 </div>
 
                 <div className="border-t border-[#E5E7EB] pt-4 space-y-1">
                   <div className="font-semibold text-xs text-[#1C1A17]">
-                    {t.author}
+                    {item.author}
                   </div>
                   <div className="text-xs text-[#6B7280]">
-                    {t.title}
+                    {item.title}
                   </div>
                   <div className="text-xs text-[#9CA3AF]">
-                    {t.affiliation}
+                    {item.affiliation}
                   </div>
                 </div>
               </div>
@@ -141,3 +128,4 @@ export const AboutSection: React.FC = () => {
     </section>
   );
 };
+

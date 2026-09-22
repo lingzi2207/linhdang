@@ -1,5 +1,7 @@
 import React from 'react';
 import avatarImg from '../assets/images/regenerated_image_1789930224282.png';
+import { useLanguage } from '../context/LanguageContext';
+import { UI_TEXT } from '../data/translations';
 
 interface ProfileBannerProps {
   avatarUrl?: string;
@@ -8,6 +10,9 @@ interface ProfileBannerProps {
 export const ProfileBanner: React.FC<ProfileBannerProps> = ({
   avatarUrl = avatarImg,
 }) => {
+  const { language } = useLanguage();
+  const t = UI_TEXT[language].profileBanner;
+
   return (
     <div id="profile-banner-component" className="w-full">
       {/* Live Visual Header Profile Banner */}
@@ -22,7 +27,7 @@ export const ProfileBanner: React.FC<ProfileBannerProps> = ({
           <div className="w-full md:w-[260px] lg:w-[280px] aspect-square relative flex-shrink-0 overflow-hidden bg-[#2B2A27] border-b md:border-b-0 md:border-r border-[#E5E7EB]">
             <img
               src={avatarUrl}
-              alt="Đặng Thị Tuyết Linh - Chân dung"
+              alt={t.altText}
               className="w-full h-full object-cover object-[center_28%]"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
@@ -38,7 +43,7 @@ export const ProfileBanner: React.FC<ProfileBannerProps> = ({
               {/* Last Name Group: ĐẶNG THỊ */}
               <div className="flex flex-col items-center">
                 <span className="text-xs sm:text-sm text-[#4B5563] font-medium tracking-tight mb-0.5">
-                  Last name
+                  {t.lastName}
                 </span>
                 <div className="flex items-center w-full my-1.5 px-0.5">
                   <span className="w-[1px] h-2 bg-[#4B5563] shrink-0" />
@@ -58,7 +63,7 @@ export const ProfileBanner: React.FC<ProfileBannerProps> = ({
               {/* First Name Group: TUYẾT LINH */}
               <div className="flex flex-col items-center">
                 <span className="text-xs sm:text-sm text-[#4B5563] font-medium tracking-tight mb-0.5">
-                  First name
+                  {t.firstName}
                 </span>
                 <div className="flex items-center w-full my-1.5 px-0.5">
                   <span className="w-[1px] h-2 bg-[#4B5563] shrink-0" />
@@ -83,7 +88,7 @@ export const ProfileBanner: React.FC<ProfileBannerProps> = ({
                       <span className="w-[1px] h-2 bg-[#16325C] shrink-0" />
                     </div>
                     <span className="text-xs sm:text-[13px] text-[#16325C] font-medium tracking-tight whitespace-nowrap">
-                      Preferred name
+                      {t.preferredName}
                     </span>
                   </div>
                 </div>
@@ -97,3 +102,4 @@ export const ProfileBanner: React.FC<ProfileBannerProps> = ({
     </div>
   );
 };
+

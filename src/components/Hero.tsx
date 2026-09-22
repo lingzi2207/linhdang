@@ -1,6 +1,8 @@
 import React from 'react';
 import { ArrowRight, BookOpen, Feather, Compass, Mail } from 'lucide-react';
 import { ProfileBanner } from './ProfileBanner';
+import { useLanguage } from '../context/LanguageContext';
+import { UI_TEXT } from '../data/translations';
 
 interface HeroProps {
   onExploreProjects: () => void;
@@ -9,36 +11,15 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onNavigate }) => {
-  const chapters = [
-    {
-      id: 'du-an',
-      title: 'Các dự án tiêu biểu',
-      desc: 'Tuyển chọn ấn phẩm văn học dịch, phi hư cấu, triết học và mỹ thuật sách.',
-      highlight: '65+ tác phẩm',
-      icon: BookOpen,
-    },
-    {
-      id: 'gioi-thieu',
-      title: 'Giới thiệu & Triết lý',
-      desc: 'Hành trình 12 năm người làm bản thảo và các nguyên tắc đạo đức làm nghề.',
-      highlight: 'Tiểu sử & Giá trị',
-      icon: Feather,
-    },
-    {
-      id: 'kinh-nghiem',
-      title: 'Kinh nghiệm & Dịch vụ',
-      desc: 'Tiến trình công tác tại các nhà xuất bản và các gói thẩm định chuyên sâu.',
-      highlight: 'Timeline & Dịch vụ',
-      icon: Compass,
-    },
-    {
-      id: 'lien-he',
-      title: 'Liên hệ & Hợp tác',
-      desc: 'Hộp thư trao đổi dự án, gửi gắm bản thảo. Ưu tiên qua Email, kèm LinkedIn & Facebook.',
-      highlight: 'lingzi2207@gmail.com',
-      icon: Mail,
-    },
-  ];
+  const { language } = useLanguage();
+  const t = UI_TEXT[language].hero;
+
+  const iconsMap: Record<string, typeof BookOpen> = {
+    'du-an': BookOpen,
+    'gioi-thieu': Feather,
+    'kinh-nghiem': Compass,
+    'lien-he': Mail,
+  };
 
   return (
     <section id="trang-chu" className="pt-28 pb-20 bg-white min-h-[calc(100vh-80px)]">
@@ -47,8 +28,8 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onNavigate }) => 
         <ProfileBanner />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {chapters.map((chap) => {
-            const IconComp = chap.icon;
+          {t.chapters.map((chap) => {
+            const IconComp = iconsMap[chap.id] || BookOpen;
             return (
               <button
                 key={chap.id}
@@ -72,7 +53,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onNavigate }) => 
                 </div>
 
                 <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-semibold text-[#995B24]">
-                  <span>Xem nội dung</span>
+                  <span>{t.viewContent}</span>
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>
@@ -83,3 +64,4 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onNavigate }) => 
     </section>
   );
 };
+

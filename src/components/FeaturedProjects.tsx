@@ -1,7 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Filter, BookOpen, ArrowRight, Award, Bookmark } from 'lucide-react';
+import { Search, ArrowRight, Award } from 'lucide-react';
 import { Project, ProjectCategory } from '../types';
 import { PROJECTS } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
+import { UI_TEXT, getLocalizedProject, getRoleLabel, getCategoryLabel } from '../data/translations';
 
 interface FeaturedProjectsProps {
   onSelectProject: (project: Project) => void;
@@ -16,12 +18,19 @@ const CATEGORIES: ProjectCategory[] = [
 ];
 
 export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProject }) => {
+  const { language } = useLanguage();
+  const t = UI_TEXT[language].projects;
+
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>('Tất cả');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRoleFilter, setSelectedRoleFilter] = useState<string>('all');
 
+  const localizedProjects = useMemo(() => {
+    return PROJECTS.map((p) => getLocalizedProject(p, language));
+  }, [language]);
+
   const filteredProjects = useMemo(() => {
-    return PROJECTS.filter((project) => {
+    return localizedProjects.filter((project) => {
       const matchCategory =
         selectedCategory === 'Tất cả' || project.category === selectedCategory;
 
@@ -35,11 +44,11 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
         (project.originalTitle && project.originalTitle.toLowerCase().includes(query)) ||
         project.author.toLowerCase().includes(query) ||
         project.publisher.toLowerCase().includes(query) ||
-        project.tags.some((t) => t.toLowerCase().includes(query));
+        project.tags.some((tag) => tag.toLowerCase().includes(query));
 
       return matchCategory && matchRole && matchQuery;
     });
-  }, [selectedCategory, selectedRoleFilter, searchQuery]);
+  }, [localizedProjects, selectedCategory, selectedRoleFilter, searchQuery]);
 
   return (
     <section id="du-an" className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-[#E5E7EB] bg-white">
@@ -48,18 +57,18 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#E5E7EB]">
           <div className="space-y-3">
             <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
-              MỤC LỤC TÁC PHẨM · 2013 – 2026
+              {t.sectionBadge}
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-[#1C1A17] tracking-tight">
-              Các dự án tiêu biểu
+              {t.title}
             </h2>
             <p className="text-base text-[#4B5563] max-w-2xl leading-relaxed">
-              Tuyển tập các ấn phẩm tiêu biểu trong sự nghiệp biên tập bản thảo, dịch thuật văn học và phát triển xuất bản cùng các nhà xuất bản hàng đầu tại Việt Nam.
+              {t.desc}
             </p>
           </div>
 
           <div className="text-xs text-[#6B7280] self-start md:self-end">
-            HIỂN THỊ <span className="font-semibold text-[#1C1A17]">{filteredProjects.length}</span> / {PROJECTS.length} ẤN PHẨM
+            {t.showing} <span className="font-semibold text-[#1C1A17]">{filteredProjects.length}</span> / {PROJECTS.length} {t.ofPublications}
           </div>
         </div>
 
@@ -69,6 +78,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
           <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {CATEGORIES.map((category) => {
               const isSelected = selectedCategory === category;
+              const label = getCategoryLabel(category, language);
               return (
                 <button
                   key={category}
@@ -80,7 +90,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
                       : 'bg-white text-[#4B5563] border-[#E5E7EB] hover:border-gray-400 hover:text-[#1C1A17]'
                   }`}
                 >
-                  {category}
+                  {label}
                 </button>
               );
             })}
@@ -96,7 +106,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
               <input
                 id="search-projects-input"
                 type="text"
-                placeholder="Tìm tựa sách, tác giả, NXB..."
+                placeholder={t.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-white border border-[#E5E7EB] pl-9 pr-3 py-1.5 text-xs text-[#1C1A17] placeholder-[#9CA3AF] focus:outline-none focus:border-[#1C1A17] transition-colors"
@@ -118,11 +128,11 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
               onChange={(e) => setSelectedRoleFilter(e.target.value)}
               className="bg-white border border-[#E5E7EB] px-3 py-1.5 text-xs text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] cursor-pointer"
             >
-              <option value="all">Mọi vai trò</option>
-              <option value="Biên tập bản thảo">Biên tập bản thảo</option>
-              <option value="Dịch giả">Dịch giả</option>
-              <option value="Phát triển xuất bản">Phát triển xuất bản</option>
-              <option value="Giám tuyển nội dung">Giám tuyển nội dung</option>
+              <option value="all">{t.allRoles}</option>
+              <option value="Biên tập bản thảo">{getRoleLabel('Biên tập bản thảo', language)}</option>
+              <option value="Dịch giả">{getRoleLabel('Dịch giả', language)}</option>
+              <option value="Phát triển xuất bản">{getRoleLabel('Phát triển xuất bản', language)}</option>
+              <option value="Giám tuyển nội dung">{getRoleLabel('Giám tuyển nội dung', language)}</option>
             </select>
           </div>
         </div>
@@ -131,7 +141,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
         {filteredProjects.length === 0 ? (
           <div className="py-20 text-center border border-[#E5E7EB] bg-gray-50 p-8 space-y-3">
             <p className="text-base text-[#4B5563]">
-              Không tìm thấy ấn phẩm nào phù hợp với bộ lọc hiện tại.
+              {t.empty}
             </p>
             <button
               onClick={() => {
@@ -141,12 +151,12 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
               }}
               className="text-xs font-semibold uppercase tracking-wider text-[#995B24] underline hover:text-[#1C1A17] cursor-pointer"
             >
-              Đặt lại toàn bộ bộ lọc
+              {t.resetFilter}
             </button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, idx) => (
+            {filteredProjects.map((project) => (
               <article
                 key={project.id}
                 id={`project-card-${project.id}`}
@@ -163,7 +173,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
                     {/* Top Metadata */}
                     <div className="flex items-center justify-between text-xs text-[#6B7280]">
                       <span className="uppercase text-[#995B24] font-semibold">
-                        {project.role}
+                        {getRoleLabel(project.role, language)}
                       </span>
                       <span>{project.year}</span>
                     </div>
@@ -183,11 +193,11 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
                     {/* Author & Publisher */}
                     <div className="pt-1 text-xs text-[#4B5563] space-y-1">
                       <div>
-                        <span className="text-[#9CA3AF]">Tác giả:</span>{' '}
+                        <span className="text-[#9CA3AF]">{t.author}:</span>{' '}
                         <span className="font-semibold text-[#1C1A17]">{project.author}</span>
                       </div>
                       <div>
-                        <span className="text-[#9CA3AF]">Đơn vị:</span>{' '}
+                        <span className="text-[#9CA3AF]">{t.publisher}:</span>{' '}
                         <span className="text-[#1C1A17]">{project.publisher}</span>
                       </div>
                     </div>
@@ -209,7 +219,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
                   {/* Card Bottom: Action */}
                   <div className="pt-4 border-t border-[#E5E7EB] flex items-center justify-between text-xs">
                     <span className="text-[#6B7280] uppercase font-medium">
-                      {project.category}
+                      {getCategoryLabel(project.category, language)}
                     </span>
 
                     <button
@@ -217,7 +227,7 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
                       onClick={() => onSelectProject(project)}
                       className="inline-flex items-center gap-1.5 font-semibold text-[#1C1A17] hover:text-[#995B24] transition-colors group/btn cursor-pointer"
                     >
-                      <span>Chi tiết & Trích đoạn</span>
+                      <span>{t.viewDetails}</span>
                       <ArrowRight size={13} className="transition-transform group-hover/btn:translate-x-0.5" />
                     </button>
                   </div>
@@ -230,3 +240,4 @@ export const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ onSelectProj
     </section>
   );
 };
+

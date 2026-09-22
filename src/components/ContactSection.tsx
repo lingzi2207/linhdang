@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Mail, Linkedin, Facebook, Copy, Check, ArrowUpRight, ShieldCheck, Clock, MapPin, Send } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
+import { UI_TEXT } from '../data/translations';
 
 export const ContactSection: React.FC = () => {
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
+  const { language } = useLanguage();
+  const t = UI_TEXT[language].contact;
 
   const primaryEmail = 'lingzi2207@gmail.com';
   const workEmail = PERSONAL_INFO.email || 'linh.dang@linhdang.id.vn';
@@ -23,13 +27,13 @@ export const ContactSection: React.FC = () => {
         {/* Section Header */}
         <div className="space-y-3 border-b border-[#E5E7EB] pb-6">
           <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold block">
-            THÔNG TIN LIÊN HỆ & HỢP TÁC
+            {t.sectionBadge}
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold text-[#1C1A17] tracking-tight">
-            Liên hệ với Linh Đặng
+            {t.title}
           </h1>
           <p className="text-base text-[#4B5563] max-w-2xl leading-relaxed">
-            Sẵn sàng kết nối cho các dự án biên tập bản thảo, dịch thuật văn học, thẩm định xuất bản và cố vấn nội dung sách.
+            {t.desc}
           </p>
         </div>
 
@@ -38,19 +42,19 @@ export const ContactSection: React.FC = () => {
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#F3F4F6] text-[#1C1A17] text-xs font-bold uppercase tracking-wider">
               <Mail size={15} className="text-[#995B24]" />
-              <span>Phương thức ưu tiên</span>
+              <span>{t.priorityBadge}</span>
             </div>
             <span className="text-xs text-[#6B7280] font-mono">
-              Phản hồi thường lệ trong vòng 24 - 48 giờ
+              {t.responseTime}
             </span>
           </div>
 
           <div className="space-y-2">
             <h2 className="text-xl sm:text-2xl font-bold text-[#1C1A17]">
-              Ưu tiên trao đổi qua Email
+              {t.emailPriorityTitle}
             </h2>
             <p className="text-sm text-[#4B5563] leading-relaxed max-w-2xl">
-              Để đảm bảo bản thảo, đề cương dự án và tài liệu được lưu trữ, theo dõi mạch lạc và bảo mật thông tin, tôi luôn ưu tiên nhận và trao đổi công việc trực tiếp qua hòm thư điện tử.
+              {t.emailPriorityDesc}
             </p>
           </div>
 
@@ -59,7 +63,7 @@ export const ContactSection: React.FC = () => {
             <div className="p-4 bg-[#F9FAFB] border border-[#E5E7EB] flex items-center justify-between gap-3">
               <div className="space-y-0.5 min-w-0">
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6B7280] block">
-                  Email chính (Hộp thư nhận việc)
+                  {t.primaryEmailLabel}
                 </span>
                 <a
                   href={`mailto:${primaryEmail}`}
@@ -74,14 +78,14 @@ export const ContactSection: React.FC = () => {
                   type="button"
                   onClick={() => handleCopyEmail(primaryEmail)}
                   className="p-2 text-[#4B5563] hover:text-[#1C1A17] hover:bg-white rounded-sm border border-transparent hover:border-[#E5E7EB] transition-all cursor-pointer"
-                  title="Sao chép email"
+                  title={copiedEmail === primaryEmail ? t.copied : t.copyEmail}
                 >
                   {copiedEmail === primaryEmail ? <Check size={16} className="text-emerald-600" /> : <Copy size={16} />}
                 </button>
                 <a
                   href={`mailto:${primaryEmail}`}
                   className="p-2 text-[#1C1A17] hover:bg-white rounded-sm border border-transparent hover:border-[#E5E7EB] transition-all"
-                  title="Mở ứng dụng thư"
+                  title={t.openMailClient}
                 >
                   <Send size={16} />
                 </a>
@@ -92,7 +96,7 @@ export const ContactSection: React.FC = () => {
             <div className="p-4 bg-[#F9FAFB] border border-[#E5E7EB] flex items-center justify-between gap-3">
               <div className="space-y-0.5 min-w-0">
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6B7280] block">
-                  Email tên miền xuất bản
+                  {t.workEmailLabel}
                 </span>
                 <a
                   href={`mailto:${workEmail}`}
@@ -107,14 +111,14 @@ export const ContactSection: React.FC = () => {
                   type="button"
                   onClick={() => handleCopyEmail(workEmail)}
                   className="p-2 text-[#4B5563] hover:text-[#1C1A17] hover:bg-white rounded-sm border border-transparent hover:border-[#E5E7EB] transition-all cursor-pointer"
-                  title="Sao chép email"
+                  title={copiedEmail === workEmail ? t.copied : t.copyEmail}
                 >
                   {copiedEmail === workEmail ? <Check size={16} className="text-emerald-600" /> : <Copy size={16} />}
                 </button>
                 <a
                   href={`mailto:${workEmail}`}
                   className="p-2 text-[#1C1A17] hover:bg-white rounded-sm border border-transparent hover:border-[#E5E7EB] transition-all"
-                  title="Mở ứng dụng thư"
+                  title={t.openMailClient}
                 >
                   <Send size={16} />
                 </a>
@@ -127,10 +131,10 @@ export const ContactSection: React.FC = () => {
         <div className="space-y-4">
           <div className="border-b border-[#E5E7EB] pb-3">
             <h3 className="text-lg font-bold text-[#1C1A17]">
-              Mạng xã hội & Hồ sơ trực tuyến
+              {t.socialsTitle}
             </h3>
             <p className="text-xs text-[#6B7280]">
-              Kết nối và theo dõi các hoạt động văn hóa, bài viết chuyên môn và cập nhật xuất bản
+              {t.socialsDesc}
             </p>
           </div>
 
@@ -149,13 +153,13 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-xs uppercase font-semibold text-[#6B7280] tracking-wider block">
-                    Mạng lưới chuyên nghiệp
+                    {t.linkedinSub}
                   </span>
                   <span className="text-base font-bold text-[#1C1A17] group-hover:text-[#0A66C2] transition-colors">
                     LinkedIn
                   </span>
                   <span className="text-xs text-[#6B7280] block">
-                    Hồ sơ kinh nghiệm & chứng nhận xuất bản
+                    {t.linkedinDesc}
                   </span>
                 </div>
               </div>
@@ -176,13 +180,13 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-xs uppercase font-semibold text-[#6B7280] tracking-wider block">
-                    Trang cá nhân & Tương tác
+                    {t.facebookSub}
                   </span>
                   <span className="text-base font-bold text-[#1C1A17] group-hover:text-[#1877F2] transition-colors">
                     Facebook
                   </span>
                   <span className="text-xs text-[#6B7280] block">
-                    Cập nhật sách mới, sự kiện & kết nối tác giả
+                    {t.facebookDesc}
                   </span>
                 </div>
               </div>
@@ -197,9 +201,9 @@ export const ContactSection: React.FC = () => {
             <div className="w-8 h-8 rounded-full bg-[#F3F4F6] text-[#1C1A17] flex items-center justify-center">
               <ShieldCheck size={18} />
             </div>
-            <h4 className="text-sm font-bold text-[#1C1A17]">Bảo mật bản thảo (NDA)</h4>
+            <h4 className="text-sm font-bold text-[#1C1A17]">{t.ndaTitle}</h4>
             <p className="text-xs text-[#6B7280] leading-relaxed">
-              Mọi tài liệu, bản thảo chưa công bố và trao đổi nội bộ đều được cam kết bảo mật tuyệt đối.
+              {t.ndaDesc}
             </p>
           </div>
 
@@ -207,9 +211,9 @@ export const ContactSection: React.FC = () => {
             <div className="w-8 h-8 rounded-full bg-[#F3F4F6] text-[#1C1A17] flex items-center justify-center">
               <Clock size={18} />
             </div>
-            <h4 className="text-sm font-bold text-[#1C1A17]">Thời gian phản hồi</h4>
+            <h4 className="text-sm font-bold text-[#1C1A17]">{t.responseCommitmentTitle}</h4>
             <p className="text-xs text-[#6B7280] leading-relaxed">
-              Phản hồi email sơ bộ trong 24-48 giờ; thời gian thẩm định bản thảo từ 5-10 ngày làm việc.
+              {t.responseCommitmentDesc}
             </p>
           </div>
 
@@ -217,9 +221,9 @@ export const ContactSection: React.FC = () => {
             <div className="w-8 h-8 rounded-full bg-[#F3F4F6] text-[#1C1A17] flex items-center justify-center">
               <MapPin size={18} />
             </div>
-            <h4 className="text-sm font-bold text-[#1C1A17]">Địa bàn làm việc</h4>
+            <h4 className="text-sm font-bold text-[#1C1A17]">{t.workLocationTitle}</h4>
             <p className="text-xs text-[#6B7280] leading-relaxed">
-              Làm việc từ xa linh hoạt toàn cầu; sẵn sàng gặp mặt trực tiếp tại Hà Nội hoặc TP. Hồ Chí Minh.
+              {t.workLocationDesc}
             </p>
           </div>
         </div>
@@ -228,3 +232,4 @@ export const ContactSection: React.FC = () => {
     </section>
   );
 };
+
