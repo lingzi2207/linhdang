@@ -15,11 +15,39 @@ import { ContactSection } from './components/ContactSection';
 import { PAGES } from './components/PageNavigation';
 import { Project } from './types';
 
+// Map of English route aliases to internal page IDs
+const PAGE_ALIAS_MAP: Record<string, string> = {
+  home: 'trang-chu',
+  projects: 'du-an',
+  works: 'du-an',
+  publications: 'du-an',
+  about: 'gioi-thieu',
+  philosophy: 'gioi-thieu',
+  bio: 'gioi-thieu',
+  experience: 'kinh-nghiem',
+  services: 'kinh-nghiem',
+  contact: 'lien-he',
+  inquiries: 'lien-he',
+};
+
+const resolvePageFromHash = (rawHash: string): string | null => {
+  let clean = rawHash.replace('#', '').trim();
+  if (clean.startsWith('/')) clean = clean.slice(1);
+  if (clean.startsWith('en/')) clean = clean.replace('en/', '');
+  if (clean.startsWith('vi/')) clean = clean.replace('vi/', '');
+  if (clean.includes('?')) clean = clean.split('?')[0];
+
+  if (!clean || clean === 'en' || clean === 'vi') return 'trang-chu';
+  if (PAGES.some((p) => p.id === clean)) return clean;
+  if (PAGE_ALIAS_MAP[clean]) return PAGE_ALIAS_MAP[clean];
+  return null;
+};
+
 export default function App() {
   // Initialize active page from URL hash if valid, otherwise 'trang-chu'
   const getInitialPage = () => {
-    const hash = window.location.hash.replace('#', '').trim();
-    return PAGES.some((p) => p.id === hash) ? hash : 'trang-chu';
+    const resolved = resolvePageFromHash(window.location.hash);
+    return resolved || 'trang-chu';
   };
 
   const [activePage, setActivePage] = useState<string>(getInitialPage);
@@ -28,16 +56,16 @@ export default function App() {
   // Synchronize with browser Back / Forward buttons via hashchange
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '').trim();
-      if (PAGES.some((p) => p.id === hash)) {
-        setActivePage(hash);
+      const resolved = resolvePageFromHash(window.location.hash);
+      if (resolved && resolved !== activePage) {
+        setActivePage(resolved);
         window.scrollTo({ top: 0, behavior: 'instant' });
       }
     };
 
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+  }, [activePage]);
 
   const handleNavigate = (pageId: string) => {
     if (!PAGES.some((p) => p.id === pageId)) return;

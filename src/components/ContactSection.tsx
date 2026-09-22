@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
-import { Mail, Linkedin, Facebook, Copy, Check, ArrowUpRight, ShieldCheck, Clock, MapPin, Send } from 'lucide-react';
+import { Mail, Linkedin, Facebook, Copy, Check, ArrowUpRight, ShieldCheck, Clock, MapPin, Send, Link2, Globe, ExternalLink } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { useLanguage } from '../context/LanguageContext';
 import { UI_TEXT } from '../data/translations';
 
 export const ContactSection: React.FC = () => {
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
-  const { language } = useLanguage();
+  const [copiedEnLink, setCopiedEnLink] = useState(false);
+  const { language, getEnglishShareUrl, copyEnglishShareUrl } = useLanguage();
   const t = UI_TEXT[language].contact;
 
   const primaryEmail = 'lingzi2207@gmail.com';
   const workEmail = PERSONAL_INFO.email || 'linh.dang@linhdang.id.vn';
   const linkedinUrl = 'https://www.linkedin.com';
   const facebookUrl = 'https://www.facebook.com';
+  const englishShareUrl = getEnglishShareUrl();
 
   const handleCopyEmail = (email: string) => {
     navigator.clipboard.writeText(email);
     setCopiedEmail(email);
     setTimeout(() => setCopiedEmail(null), 2500);
+  };
+
+  const handleCopyEnglishLink = async () => {
+    const success = await copyEnglishShareUrl();
+    if (success) {
+      setCopiedEnLink(true);
+      setTimeout(() => setCopiedEnLink(false), 2500);
+    }
   };
 
   return (
@@ -123,6 +133,73 @@ export const ContactSection: React.FC = () => {
                   <Send size={16} />
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Dedicated English Link Box for International Partners */}
+        <div id="international-partner-link-card" className="bg-white border border-[#E5E7EB] p-6 sm:p-8 space-y-4 shadow-xs">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#E5E7EB] pb-4">
+            <div className="flex items-center gap-2">
+              <span className="p-1.5 bg-[#995B24]/10 text-[#995B24] rounded-xs">
+                <Globe size={16} />
+              </span>
+              <h2 className="text-base sm:text-lg font-bold text-[#1C1A17]">
+                {t.partnerLinkTitle}
+              </h2>
+            </div>
+            <span className="text-xs font-mono px-2.5 py-1 bg-amber-50 text-[#995B24] font-bold border border-amber-200/80 rounded-xs">
+              ?lang=en
+            </span>
+          </div>
+
+          <p className="text-sm text-[#4B5563] leading-relaxed max-w-3xl">
+            {t.partnerLinkDesc}
+          </p>
+
+          <div className="p-4 bg-[#F9FAFB] border border-[#E5E7EB] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1 min-w-0">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6B7280] block">
+                {t.partnerLinkDirectUrl}
+              </span>
+              <code className="text-sm sm:text-base font-mono font-bold text-[#1C1A17] break-all select-all block">
+                {englishShareUrl}
+              </code>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                id="btn-copy-partner-link"
+                onClick={handleCopyEnglishLink}
+                className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold transition-all rounded-xs border cursor-pointer ${
+                  copiedEnLink
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+                    : 'bg-[#1C1A17] hover:bg-[#322F2A] text-white border-[#1C1A17]'
+                }`}
+              >
+                {copiedEnLink ? (
+                  <>
+                    <Check size={14} />
+                    <span>{t.copiedPartnerLink}</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={14} />
+                    <span>{t.copyPartnerLink}</span>
+                  </>
+                )}
+              </button>
+
+              <a
+                href="/?lang=en"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 text-[#4B5563] hover:text-[#1C1A17] bg-white border border-[#D1D5DB] rounded-xs hover:bg-gray-50 transition-all cursor-pointer"
+                title="Mở trong tab mới để kiểm tra (Preview English link)"
+              >
+                <ExternalLink size={15} />
+              </a>
             </div>
           </div>
         </div>
