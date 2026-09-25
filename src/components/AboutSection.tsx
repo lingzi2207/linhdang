@@ -1,12 +1,10 @@
 import React from 'react';
-import { Quote } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { UI_TEXT, TESTIMONIALS_BILINGUAL } from '../data/translations';
+import { UI_TEXT } from '../data/translations';
 
 export const AboutSection: React.FC = () => {
   const { language } = useLanguage();
   const t = UI_TEXT[language].about;
-  const testimonials = TESTIMONIALS_BILINGUAL[language];
 
   return (
     <section id="gioi-thieu" className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-[#E5E7EB] bg-white">
@@ -81,47 +79,6 @@ export const AboutSection: React.FC = () => {
             <div className="pt-2 border-t border-[#E5E7EB] text-xs text-[#9CA3AF]">
               {t.confidentialityNote}
             </div>
-          </div>
-        </div>
-
-        {/* Editorial Testimonials / Words from Colleagues & Authors */}
-        <div className="pt-12 border-t border-[#E5E7EB] space-y-8">
-          <div className="flex items-center justify-between">
-            <span className="text-xs uppercase tracking-widest text-[#995B24] font-bold">
-              {t.testimonialsBadge}
-            </span>
-            <span className="text-xs text-[#9CA3AF]">
-              {t.testimonialsSubBadge}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((item) => (
-              <div
-                key={item.id}
-                id={`testimonial-${item.id}`}
-                className="bg-white border border-[#E5E7EB] p-6 sm:p-7 flex flex-col justify-between space-y-6 shadow-xs"
-              >
-                <div className="space-y-4">
-                  <Quote size={20} className="text-gray-300" />
-                  <p className="text-sm sm:text-base italic text-[#201E1B] leading-relaxed">
-                    “{item.quote}”
-                  </p>
-                </div>
-
-                <div className="border-t border-[#E5E7EB] pt-4 space-y-1">
-                  <div className="font-semibold text-xs text-[#1C1A17]">
-                    {item.author}
-                  </div>
-                  <div className="text-xs text-[#6B7280]">
-                    {item.title}
-                  </div>
-                  <div className="text-xs text-[#9CA3AF]">
-                    {item.affiliation}
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

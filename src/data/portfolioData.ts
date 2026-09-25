@@ -11,7 +11,7 @@ export const PERSONAL_INFO = {
   publishedBooksCount: '65+',
   translatedTitlesCount: '18+',
   readershipEstimate: '450.000+',
-  bioShort: 'Biên tập viên và dịch giả độc lập với hơn một thập kỷ đồng hành cùng các nhà xuất bản hàng đầu tại Việt Nam. Chuyên chú vào các tác phẩm văn học đương đại, triết học thường nhật và sách nghệ thuật thị giác.',
+  bioShort: 'Biên tập viên và dịch giả độc lập với hơn một thập kỷ đồng hành cùng các nhà xuất bản hàng đầu tại Việt Nam. Chuyên chú vào các ấn phẩm văn học, nghệ thuật, truyện tranh thanh thiếu niên và truyện thiếu nhi.',
   manifesto: 'Một cuốn sách hoàn hảo không phải là cuốn sách không còn lỗi chính tả, mà là nơi tiếng nói bản nguyên của tác giả tìm được nhịp thở tự nhiên nhất trong tâm thức bạn đọc tiếng Việt.'
 };
 
