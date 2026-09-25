@@ -11,7 +11,7 @@ export const ContactSection: React.FC = () => {
   const t = UI_TEXT[language].contact;
 
   const primaryEmail = 'lingzi2207@gmail.com';
-  const workEmail = PERSONAL_INFO.email || 'linh.dang@linhdang.id.vn';
+  const workEmail = PERSONAL_INFO.email || 'contact@linhdang.id.vn';
   const linkedinUrl = 'https://www.linkedin.com';
   const facebookUrl = 'https://www.facebook.com';
   const englishShareUrl = getEnglishShareUrl();
