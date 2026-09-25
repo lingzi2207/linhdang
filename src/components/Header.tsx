@@ -44,7 +44,6 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
           <nav className="flex items-center space-x-1 lg:space-x-2 text-[14px]">
             {NAV_PAGES.map((page) => {
               const isActive = activePage === page.id;
-              const isContact = page.id === 'lien-he';
               const label = page.shortLabel[language];
               return (
                 <button
@@ -52,17 +51,13 @@ export const Header: React.FC<HeaderProps> = ({ activePage, onNavigate }) => {
                   id={`nav-${page.id}`}
                   onClick={() => handleNavClick(page.id)}
                   className={`px-3.5 py-2 transition-all relative font-medium cursor-pointer ${
-                    isContact
-                      ? isActive
-                        ? 'bg-gray-200 text-[#1C1A17] font-bold border border-gray-300 rounded-xs'
-                        : 'bg-gray-100 text-[#1C1A17] hover:bg-gray-200 border border-gray-300/80 rounded-xs'
-                      : isActive
+                    isActive
                       ? 'text-[#1C1A17] font-semibold bg-gray-100'
                       : 'text-[#6B7280] hover:text-[#1C1A17] hover:bg-gray-50'
                   }`}
                 >
                   <span>{label}</span>
-                  {isActive && !isContact && (
+                  {isActive && (
                     <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-[#995B24]" />
                   )}
                 </button>

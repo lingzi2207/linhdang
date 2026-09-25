@@ -100,8 +100,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="space-y-2">
             <span className="text-[#1C1A17] uppercase font-semibold block">{t.directContactTitle}</span>
             <p className="text-[#6B665E] leading-relaxed">
-              Email: {PERSONAL_INFO.email}<br />
-              {t.backupEmailLabel}: {PERSONAL_INFO.secondaryEmail}
+              Email: {PERSONAL_INFO.email}
             </p>
           </div>
         </div>
